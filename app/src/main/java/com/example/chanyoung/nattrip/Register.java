@@ -4,12 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -24,19 +25,18 @@ public class Register extends AppCompatActivity {
 
     String _id; String _pw; String _name; String _language;
 
-    EditText re_id;
-    EditText re_pw;
-    //EditText re_pwpw = (EditText) findViewById(R.id.ed_pwpw;
-    EditText re_name;
-    //EditText re_email = (EditText) findViewById(R.id.editText8);
-    EditText re_language;
+    EditText ed_id;
+    EditText ed_pw;
+    EditText ed_re_pw;
+    EditText ed_name;
+    EditText ed_email;
 
     Button regist_button;
     Button main_button;
     Button chat_button;
     Button image_button;
 
-    private TextView mTextMessage;
+    boolean check_id = false;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -75,60 +75,65 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        re_id = (EditText) findViewById(R.id.ed_id);
-        re_pw = (EditText) findViewById(R.id.ed_pw);
-        re_name = (EditText) findViewById(R.id.ed_name);
-        re_language = (EditText) findViewById(R.id.ed_language);
+        ed_id = (EditText) findViewById(R.id.ed_id);
+        ed_pw = (EditText) findViewById(R.id.ed_pw);
+        ed_re_pw = (EditText) findViewById(R.id.ed_re_pw);
+        ed_name = (EditText) findViewById(R.id.ed_name);
+        ed_email = (EditText) findViewById(R.id.ed_email);
 
-        regist_button = (Button) findViewById(R.id.regiButton);
+        Button id_check = (Button) findViewById(R.id.btn_id_check);
+        id_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                check_id=true; //중복확인
+                if(check_id==false){
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(Register.this);
+                    alertDialog.setTitle("아이디 중복 확인").setMessage("이미 등록된 아이디입니다.");
+                    alertDialog.setPositiveButton("확인", null);
+                    alertDialog.show();
+                }else if(check_id==true){
+                    AlertDialog.Builder alertDialog = new AlertDialog.Builder(Register.this);
+                    alertDialog.setTitle("아이디 중복 확인").setMessage("확인되었습니다.");
+                    alertDialog.setPositiveButton("확인", null);
+                    alertDialog.show();
+                }
+
+            }
+        });
+
+        final Button regist_button = (Button) findViewById(R.id.btn_regi);
         regist_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                regiUser();
-                Intent main_page = new Intent(Register.this,MainActivity.class);
-                main_page.putExtra("userID",id);
-                startActivity(main_page);
-                //User regiUser = new User(_id,_pw,_name,_language);
-                // DatabaseReference newPerson = table.child(_id);
-                // newPerson.child(_id).setValue(regiUser);
-            }
-        });
-        main_button = (Button)findViewById(R.id.mainButton);
-        main_button.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                Intent main_page = new Intent(Register.this,MainActivity.class);
-                startActivity(main_page);
-            }
-        });
-        chat_button = (Button)findViewById(R.id.chatButton);
-        chat_button.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                Intent main_page = new Intent(Register.this,ChatList.class);
-                startActivity(main_page);
-            }
-        });
-        image_button = (Button)findViewById(R.id.imageButton);
-        image_button.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
-                Intent image_page = new Intent(Register.this,InsertImage.class);
-                startActivity(image_page);
-            }
-        });
 
+                if(ed_pw.getText().toString().equals(ed_re_pw.getText().toString())//비밀번호 확인
+                        && check_id==true  ){
+                    regiUser();
+                    /*Intent sign_in_page = new Intent(Register.this,SignIn.class);
+                    startActivity(sign_in_page);*/
+                    finish();
+                }else if(check_id!=true){
+                    Toast.makeText(getApplicationContext(),"아이디를 다시 확인해주세요",Toast.LENGTH_LONG).show();
+                }else if(ed_pw.getText().toString()!=ed_re_pw.getText().toString()){
+                    Toast.makeText(getApplicationContext(),"비밀번호를 다시 확인해주세요",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
     public void regiUser() {//데이터베스 연결
         table = FirebaseDatabase.getInstance().getReference("users");
-        User regiUser = new User(re_id.getText().toString(),
-                re_pw.getText().toString(),
-                re_name.getText().toString(),
-                re_language.getText().toString());
-        table.child(re_id.getText().toString()).setValue(regiUser);
-        re_id.setText("");
-        re_pw.setText("");
-        re_name.setText("");
-        re_language.setText("");
+        User regiUser = new User(ed_id.getText().toString(),
+                ed_pw.getText().toString(),
+                ed_name.getText().toString(),
+                ed_email.getText().toString());
+        table.child(ed_id.getText().toString()).setValue(regiUser);
+        ed_id.setText("");
+        ed_pw.setText("");
+        ed_name.setText("");
+        ed_email.setText("");
     }
 
 }

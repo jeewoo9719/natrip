@@ -32,13 +32,9 @@ public class MainActivity extends AppCompatActivity {
     MyAdapter adapter;
     ListView listView;
     BottomNavigationView bottomNavigationView;
-    ArrayList<User> userList;
+    ArrayList<Tour> tourList;
     DatabaseReference table; //데이터베이스 레퍼런스 객체 선언
-    TextView userID;
-    TextView userName;
-    TextView language;
-    String ID;
-
+    String ID = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,25 +44,26 @@ public class MainActivity extends AppCompatActivity {
 
     public void init() {
         listView = (ListView) findViewById(R.id.listView);
-        userList = new ArrayList<>();
-        adapter = new MyAdapter(this, R.layout.row, userList);
+        tourList = new ArrayList<>();
+        adapter = new MyAdapter(this, R.layout.row, tourList);
         //customAdapter = new MyAdapter(this,R.layout.tour,userList);
         listView.setAdapter(adapter);
         initDB();
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                User user = (User) listView.getItemAtPosition(pos);
-                Intent intent = new Intent(MainActivity.this, TourActivity.class);
-                intent.putExtra("userID", user.getUserID());
-                startActivity(intent);
-            }
-        });
-
         Bundle bundle = getIntent().getExtras();//클릭시 intent로 온 UserID 받음
         if(bundle != null){
             ID = bundle.getString("userID");
         }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                Tour tour = (Tour) listView.getItemAtPosition(pos);
+                Intent intent = new Intent(MainActivity.this, TourActivity.class);
+                intent.putExtra("userID",ID);
+                intent.putExtra("guideName", tour.getGuideName());
+                startActivity(intent);
+            }
+        });
+
+
     }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -75,12 +72,12 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_home:
-                    Intent main_page = new Intent(MainActivity.this,MainActivity.class);
+                    Intent main_page = new Intent(MainActivity.this,SearchActivity.class);
                     main_page.putExtra("userID",id);
                     startActivity(main_page);
                     break;
                 case R.id.action_MyTour:
-                    Intent chat_page = new Intent(MainActivity.this,Register.class);
+                    Intent chat_page = new Intent(MainActivity.this,MainActivity.class);
                     chat_page.putExtra("userID",id);
                     startActivity(chat_page);
                     break;
@@ -91,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(msg_page);
                     break;
                 case R.id.action_setting:
-                    Intent setting_page = new Intent(MainActivity.this,ChatList.class);
+                    Intent setting_page = new Intent(MainActivity.this,SettingActivity.class);
                     setting_page.putExtra("userID",id);
                     startActivity(setting_page);
                     break;
@@ -101,17 +98,17 @@ public class MainActivity extends AppCompatActivity {
 
     };
     public void initDB() {//데이터베스 연결
-        table = FirebaseDatabase.getInstance().getReference("users");
+        table = FirebaseDatabase.getInstance().getReference("tours");
         //makeData();
         table.addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                userList.clear();
+                tourList.clear();
                 for(DataSnapshot data : dataSnapshot.getChildren()){
                     //들어온 메세지들을 일단 다 받겠다
-                    User user = data.getValue(User.class);
+                    Tour tour = data.getValue(Tour.class);
                     //이형태로 데이터를 만들어서 넘겨준다.
-                    userList.add(user);
+                    tourList.add(tour);
                 }
                 adapter.notifyDataSetChanged();//데이터변경알림
                 listView.setSelection(adapter.getCount()-1);
@@ -124,10 +121,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 }
-    class MyAdapter extends ArrayAdapter<User> { //arrayList담을 MyAdapter 클래스 상속
-        ArrayList<User> arrayList;
+    class MyAdapter extends ArrayAdapter<Tour> { //arrayList담을 MyAdapter 클래스 상속
+        ArrayList<Tour> arrayList;
 
-        public MyAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<User> objects) {
+        public MyAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull ArrayList<Tour> objects) {
             super(context, resource, objects);
             arrayList = objects;
         }
@@ -142,14 +139,17 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // TextView에 Message 출력하는 기능 구현
-            User user = arrayList.get(position);
+            Tour tour = arrayList.get(position);
             //현재 행에 해당하는 chat 정보를 가져옴, position
-            TextView userName = (TextView) v.findViewById(R.id.userName);
-            TextView userID = (TextView) v.findViewById(R.id.userID);
-            TextView language = (TextView) v.findViewById(R.id.language);
-            userName.setText(user.getUserName());//매핑작업(메시지, ID, 시간순으로 보여줌)
-            userID.setText(user.getUserID());
-            language.setText(user.getUserLanguage());
+            TextView guideID = (TextView) v.findViewById(R.id.guideID);
+            TextView tourName = (TextView) v.findViewById(R.id.tourName);
+            TextView tourPlace = (TextView) v.findViewById(R.id.tourPlace);
+            TextView tourDetail = (TextView) v.findViewById(R.id.tourDetail);
+
+            guideID.setText(tour.getGuideName());//매핑작업(메시지, ID, 시간순으로 보여줌)
+            tourName.setText(tour.getTourName());
+            tourPlace.setText(tour.getplace());
+            tourDetail.setText(tour.getDetail());
             return v;
         }
     }

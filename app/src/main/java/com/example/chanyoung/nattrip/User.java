@@ -5,10 +5,13 @@ package com.example.chanyoung.nattrip;
  */
 
 public class User {
-    private String userID;
     private String userName;
-    private String language;
+    private String userID;
     private String userPW;
+    private String language;
+    public int guide = 0;
+    private String email;
+
     private boolean guideAllowance;
 
     /*
@@ -27,11 +30,11 @@ public class User {
         this.userName = userName;
         this.language = language;
     }*/
-    public User(String userId, String userPW,String userName, String language){
+    public User(String userId, String userPW,String userName, String email){
         this.userID =  userId;
         this.userPW = userPW;
         this.userName = userName;
-        this.language = language;
+        this.email = email;
     }
 
     public String getUserID(){ return userID;}
@@ -45,4 +48,7 @@ public class User {
 
     public String getUserLanguage(){ return language;}
     public void setUserLanguage(String language){ this.language = language;}
+
+    public String getUserEmail(){ return email;}
+    public void setUserEmail(String language){ this.email = email;}
 }

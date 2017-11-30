@@ -21,7 +21,7 @@ public class SignIn extends AppCompatActivity {
     String pw;
     String correctpw = null;
     String correctpw2 = null;
-    //test
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,11 +47,11 @@ public class SignIn extends AppCompatActivity {
 
                         if(pw.equals(correctpw)){
                             Toast.makeText(getApplicationContext(),"로그인 되었습니다.",Toast.LENGTH_SHORT).show();
-                            Intent new_page = new Intent(SignIn.this,MainActivity.class);
+                            Intent new_page = new Intent(SignIn.this,SearchActivity.class);
                             new_page.putExtra("userID",id);
                             startActivity(new_page);
                         }else{
-                            Toast.makeText(getApplicationContext(),"다시 입력해 주세요."+correctpw+" "+correctpw2,Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"다시 입력해 주세요.",Toast.LENGTH_SHORT).show();
                         }
                     }
 

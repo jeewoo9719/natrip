@@ -6,19 +6,25 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/userID"
+        android:id="@+id/guideID"
         android:textColor="#000000"
         android:textSize="15sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
-        android:id="@+id/userName"
+        android:id="@+id/tourName"
         android:textColor="#000000"
         android:textSize="15sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
-        android:id="@+id/language"
+        android:id="@+id/tourPlace"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tourDetail"
         android:textColor="#000000"
         android:textSize="15sp"
         android:layout_width="wrap_content"

@@ -28,13 +28,17 @@ public class ChatList extends AppCompatActivity {
     ListView listView;
     DatabaseReference table;
     ArrayAdapter<String> adapter;
-
+    String ID = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list2);
+        Bundle bundle = getIntent().getExtras();//클릭시 intent로 온 UserID 받음
+        if(bundle != null){
+            ID = bundle.getString("userID");
+        }
 
         nameSearch=(EditText) findViewById(R.id.nameSearch);//가져오고
         init();
@@ -89,12 +93,12 @@ public class ChatList extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.action_home:
-                    Intent main_page = new Intent(ChatList.this,MainActivity.class);
+                    Intent main_page = new Intent(ChatList.this,SearchActivity.class);
                     main_page.putExtra("userID",id);
                     startActivity(main_page);
                     break;
                 case R.id.action_MyTour:
-                    Intent chat_page = new Intent(ChatList.this,SignIn.class);
+                    Intent chat_page = new Intent(ChatList.this,MainActivity.class);
                     chat_page.putExtra("userID",id);
                     startActivity(chat_page);
                     break;
@@ -104,7 +108,7 @@ public class ChatList extends AppCompatActivity {
                     startActivity(msg_page);
                     break;
                 case R.id.action_setting:
-                    Intent setting_page = new Intent(ChatList.this,ChatList.class);
+                    Intent setting_page = new Intent(ChatList.this,SettingActivity.class);
                     setting_page.putExtra("userID",id);
                     startActivity(setting_page);
                     break;
