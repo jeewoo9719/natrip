@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,7 +20,7 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity implements TextWatcher{
 
     Button btn,bt;
     int year_x, month_x,day_x;  //투어 시작일 받는 인자
@@ -27,7 +29,7 @@ public class SearchActivity extends AppCompatActivity {
     // 종료일 받는 인자
     static final int DILOG_ID=0; //투어 시작일용
     static final int DILOG_ID2=0;  //투어  종료일용
-    ListView listView;  //나라 리스트
+    ListView listView2;  //나라 리스트
     EditText editText;   //검색 단어용
     ArrayAdapter<String> arrayAdapter; //나라 리스트들 저장
     //MyDBHandler dbHandler;
@@ -57,16 +59,16 @@ public class SearchActivity extends AppCompatActivity {
             showDialog();
 
             //나라 리스트 보여주고 검색
-            listView = (ListView)findViewById(R.id.listView);
+            listView2 = (ListView)findViewById(R.id.listView2);
             editText = (EditText)findViewById(R.id.editText);
             // dbHandler=new MyDBHandler(this,"test.db",null,1);
             arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1);
             arrayAdapter.add("A_list");
             arrayAdapter.add("B_list");
             arrayAdapter.add("C_list");
-            listView.setAdapter(arrayAdapter);
-            listView.setTextFilterEnabled(true);
-            //editText.addTextChangedListener(this);
+            listView2.setAdapter(arrayAdapter);
+            listView2.setTextFilterEnabled(true);
+            editText.addTextChangedListener(this);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -158,6 +160,21 @@ public class SearchActivity extends AppCompatActivity {
             }
         };
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        listView2.setFilterText(editText.getText().toString());
+    }
+
+    @Override
+    public void afterTextChanged(Editable e) {
+        if(editText.getText().length()==0){
+            listView2.clearTextFilter();
+        }
+    }
 
 
 }
