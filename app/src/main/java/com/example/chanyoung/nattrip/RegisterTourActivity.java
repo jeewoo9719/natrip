@@ -24,7 +24,7 @@ import java.util.Calendar;
 
 public class RegisterTourActivity extends AppCompatActivity {
 
-    public  String id;
+    public  String ID;
     DatabaseReference table;
     ArrayList<String> spinnerlist = new ArrayList<String>();
     EditText tour_name, tour_thing;
@@ -42,23 +42,23 @@ public class RegisterTourActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.action_home:
                     Intent main_page = new Intent(RegisterTourActivity.this,SearchActivity.class);
-                    main_page.putExtra("userID",id);
+                    main_page.putExtra("userID",ID);
                     startActivity(main_page);
                     break;
                 case R.id.action_MyTour:
                     Intent chat_page = new Intent(RegisterTourActivity.this,MainActivity.class);
-                    chat_page.putExtra("userID",id);
+                    chat_page.putExtra("userID",ID);
                     startActivity(chat_page);
                     break;
 
                 case R.id.action_Messenger:
                     Intent msg_page = new Intent(RegisterTourActivity.this,ChatList.class);
-                    msg_page.putExtra("userID",id);
+                    msg_page.putExtra("userID",ID);
                     startActivity(msg_page);
                     break;
                 case R.id.action_setting:
                     Intent setting_page = new Intent(RegisterTourActivity.this,SettingActivity.class);
-                    setting_page.putExtra("userID",id);
+                    setting_page.putExtra("userID",ID);
                     startActivity(setting_page);
                     break;
             }
@@ -74,8 +74,10 @@ public class RegisterTourActivity extends AppCompatActivity {
 
         table = FirebaseDatabase.getInstance().getReference("Tours");
 
-        Intent intent  =  getIntent();
-        id =  intent.getExtras().getString("id");
+        Bundle bundle = getIntent().getExtras();//클릭시 intent로 온 UserID 받음
+        if(bundle != null){
+            ID = bundle.getString("userID");
+        }
 
         final Calendar cal = Calendar.getInstance();
         year_s=cal.get(Calendar.YEAR);
@@ -202,7 +204,7 @@ public class RegisterTourActivity extends AppCompatActivity {
 
     public void regiTour(){
         table= FirebaseDatabase.getInstance().getReference("tours");
-        Tour newtour = new Tour(id,tour_name.getText().toString(),tour_thing.getText().toString(),
+        Tour newtour = new Tour(ID,tour_name.getText().toString(),tour_thing.getText().toString(),
                 tour_place, year_s, month_s, year_e, month_e);
         table.child(tour_place).setValue(newtour);
         tour_name.setText("");

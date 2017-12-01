@@ -14,13 +14,11 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import static android.R.attr.id;
-
 public class ModiInfoActivity extends AppCompatActivity {
 
     EditText change_na, change_pw;
     DatabaseReference table;
-    String userID;
+    String ID;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -31,22 +29,22 @@ public class ModiInfoActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.action_home:
                     Intent main_page = new Intent(ModiInfoActivity.this,SearchActivity.class);
-                    main_page.putExtra("userID",id);
+                    main_page.putExtra("userID",ID);
                     startActivity(main_page);
                     break;
                 case R.id.action_MyTour:
                     Intent chat_page = new Intent(ModiInfoActivity.this,MainActivity.class);
-                    chat_page.putExtra("userID",id);
+                    chat_page.putExtra("userID",ID);
                     startActivity(chat_page);
                     break;
                 case R.id.action_Messenger:
                     Intent msg_page = new Intent(ModiInfoActivity.this,ChatList.class);
-                    msg_page.putExtra("userID",id);
+                    msg_page.putExtra("userID",ID);
                     startActivity(msg_page);
                     break;
                 case R.id.action_setting:
                     Intent setting_page = new Intent(ModiInfoActivity.this,SettingActivity.class);
-                    setting_page.putExtra("userID",id);
+                    setting_page.putExtra("userID",ID);
                     startActivity(setting_page);
                     break;
             }
@@ -62,8 +60,10 @@ public class ModiInfoActivity extends AppCompatActivity {
 
         table = FirebaseDatabase.getInstance().getReference("users");
 
-        Intent intent = getIntent();
-        userID=intent.getExtras().getString("id");
+        Bundle bundle = getIntent().getExtras();//클릭시 intent로 온 UserID 받음
+        if(bundle != null){
+            ID = bundle.getString("userID");
+        }
         change_na = (EditText)findViewById(R.id.editText7);
         change_pw=(EditText)findViewById(R.id.editText9);
         change_na.setText("");
@@ -76,10 +76,10 @@ public class ModiInfoActivity extends AppCompatActivity {
                 //GO_back.putExtra("ch_na",change_na.getText().toString());
                 //GO_back.putExtra("ch_pw",change_pw.getText().toString());
                 if(!change_na.getText().toString().equals("")){
-                    table.child(userID).child("name").setValue(change_na.getText().toString());
+                    table.child(ID).child("name").setValue(change_na.getText().toString());
                 }
                 if(!change_pw.getText().toString().equals("")){
-                    table.child(userID).child("pw").setValue(change_pw.getText().toString());
+                    table.child(ID).child("pw").setValue(change_pw.getText().toString());
                 }
                 change_na.setText("");
                 change_pw.setText("");

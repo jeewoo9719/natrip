@@ -20,8 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import static android.R.attr.id;
-
 public class ChatList extends AppCompatActivity {
 
     EditText nameSearch;//텍스트생성
@@ -94,22 +92,22 @@ public class ChatList extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.action_home:
                     Intent main_page = new Intent(ChatList.this,SearchActivity.class);
-                    main_page.putExtra("userID",id);
+                    main_page.putExtra("userID",ID);
                     startActivity(main_page);
                     break;
                 case R.id.action_MyTour:
                     Intent chat_page = new Intent(ChatList.this,MainActivity.class);
-                    chat_page.putExtra("userID",id);
+                    chat_page.putExtra("userID",ID);
                     startActivity(chat_page);
                     break;
                 case R.id.action_Messenger:
                     Intent msg_page = new Intent(ChatList.this,ChatList.class);
-                    msg_page.putExtra("userID",id);
+                    msg_page.putExtra("userID",ID);
                     startActivity(msg_page);
                     break;
                 case R.id.action_setting:
                     Intent setting_page = new Intent(ChatList.this,SettingActivity.class);
-                    setting_page.putExtra("userID",id);
+                    setting_page.putExtra("userID",ID);
                     startActivity(setting_page);
                     break;
             }

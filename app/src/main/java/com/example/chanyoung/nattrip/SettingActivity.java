@@ -18,12 +18,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import static android.R.attr.id;
-
 public class SettingActivity extends AppCompatActivity {
 
     DatabaseReference table;
-    public String user_ID;
+    public String ID;
     public String user_name;
     public int user_guide = 1; //1이면 가이드
     public String Guide = "NULL";
@@ -40,23 +38,23 @@ public class SettingActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.action_home:
                     Intent main_page = new Intent(SettingActivity.this,SearchActivity.class);
-                    main_page.putExtra("userID",id);
+                    main_page.putExtra("userID",ID);
                     startActivity(main_page);
                     break;
                 case R.id.action_MyTour:
                     Intent chat_page = new Intent(SettingActivity.this,MainActivity.class);
-                    chat_page.putExtra("userID",id);
+                    chat_page.putExtra("userID",ID);
                     startActivity(chat_page);
                     break;
 
                 case R.id.action_Messenger:
                     Intent msg_page = new Intent(SettingActivity.this,ChatList.class);
-                    msg_page.putExtra("userID",id);
+                    msg_page.putExtra("userID",ID);
                     startActivity(msg_page);
                     break;
                 case R.id.action_setting:
                     Intent setting_page = new Intent(SettingActivity.this,SettingActivity.class);
-                    setting_page.putExtra("userID",id);
+                    setting_page.putExtra("userID",ID);
                     startActivity(setting_page);
                     break;
             }
@@ -70,15 +68,17 @@ public class SettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        Intent intent = getIntent();
-        user_ID = intent.getExtras().getString("userID"); //아이디 가져오기
+        Bundle bundle = getIntent().getExtras();//클릭시 intent로 온 UserID 받음
+        if(bundle != null){
+            ID = bundle.getString("userID");
+        }
         table = FirebaseDatabase.getInstance().getReference("users");
         tv_name = (TextView) findViewById(R.id.textView);
         tv_guide = (TextView) findViewById(R.id.textView2);
 
         //Toast.makeText(getApplicationContext(),user_ID,Toast.LENGTH_SHORT).show(); ㅇㅇ
 
-        table.child(user_ID).addValueEventListener(new ValueEventListener() {
+        table.child(ID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //가이드정보, 이름 가져오기
@@ -107,7 +107,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"사용자 정보 수정",Toast.LENGTH_SHORT).show();
                 Intent new_page = new Intent(SettingActivity.this,ModiInfoActivity.class);
-                new_page.putExtra("id",user_ID);
+                new_page.putExtra("id",ID);
                 startActivity(new_page);
             }
         });
@@ -126,7 +126,7 @@ public class SettingActivity extends AppCompatActivity {
                 else{
                     //여기 바꿔주기
                     Intent new_page = new Intent(SettingActivity.this,ModiInfoActivity.class);
-                    new_page.putExtra("id",user_ID);
+                    new_page.putExtra("id",ID);
                     startActivity(new_page);
                 }
             }
@@ -138,7 +138,7 @@ public class SettingActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"투어 등록",Toast.LENGTH_SHORT).show();
                 if(user_guide==0) { //1로 고쳐야함
                     Intent new_page = new Intent(SettingActivity.this, RegisterTourActivity.class);
-                    new_page.putExtra("id",user_ID);
+                    new_page.putExtra("id",ID);
                     startActivity(new_page);
                 }
                 else{

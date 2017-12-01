@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import static android.R.attr.id;
-
 public class TourActivity extends AppCompatActivity {
 
     String ID;
@@ -31,22 +29,22 @@ public class TourActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.action_home:
                     Intent main_page = new Intent(TourActivity.this,SearchActivity.class);
-                    main_page.putExtra("userID",id);
+                    main_page.putExtra("userID",ID);
                     startActivity(main_page);
                     break;
                 case R.id.action_MyTour:
                     Intent chat_page = new Intent(TourActivity.this,MainActivity.class);
-                    chat_page.putExtra("userID",id);
+                    chat_page.putExtra("userID",ID);
                     startActivity(chat_page);
                     break;
                 case R.id.action_Messenger:
                     Intent msg_page = new Intent(TourActivity.this,ChatList.class);
-                    msg_page.putExtra("userID",id);
+                    msg_page.putExtra("userID",ID);
                     startActivity(msg_page);
                     break;
                 case R.id.action_setting:
                     Intent setting_page = new Intent(TourActivity.this,SettingActivity.class);
-                     setting_page.putExtra("userID",id);
+                     setting_page.putExtra("userID",ID);
                     startActivity(setting_page);
                     break;
             }

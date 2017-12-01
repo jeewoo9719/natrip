@@ -25,8 +25,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import static android.R.attr.id;
-
 public class MainActivity extends AppCompatActivity {
 
     MyAdapter adapter;
@@ -75,23 +73,23 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.action_home:
                     Intent main_page = new Intent(MainActivity.this,SearchActivity.class);
-                    main_page.putExtra("userID",id);
+                    main_page.putExtra("userID",ID);
                     startActivity(main_page);
                     break;
                 case R.id.action_MyTour:
                     Intent chat_page = new Intent(MainActivity.this,MainActivity.class);
-                    chat_page.putExtra("userID",id);
+                    chat_page.putExtra("userID",ID);
                     startActivity(chat_page);
                     break;
 
                 case R.id.action_Messenger:
                     Intent msg_page = new Intent(MainActivity.this,ChatList.class);
-                    msg_page.putExtra("userID",id);
+                    msg_page.putExtra("userID",ID);
                     startActivity(msg_page);
                     break;
                 case R.id.action_setting:
                     Intent setting_page = new Intent(MainActivity.this,SettingActivity.class);
-                    setting_page.putExtra("userID",id);
+                    setting_page.putExtra("userID",ID);
                     startActivity(setting_page);
                     break;
             }
