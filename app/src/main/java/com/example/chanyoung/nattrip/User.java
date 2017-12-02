@@ -11,6 +11,7 @@ public class User {
     private String language;
     public int guide = 0;
     private String email;
+    private  String userPlace;
 
     private boolean guideAllowance;
 
@@ -51,4 +52,9 @@ public class User {
 
     public String getUserEmail(){ return email;}
     public void setUserEmail(String language){ this.email = email;}
+
+    public String  getUserPlace(){return  userPlace;}
+    public void setUserPlace(String place){this.userPlace=place;}
+
+
 }
