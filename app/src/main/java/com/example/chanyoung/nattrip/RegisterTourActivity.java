@@ -24,7 +24,7 @@ import java.util.Calendar;
 
 public class RegisterTourActivity extends AppCompatActivity {
 
-    public  String ID;
+    String ID=null;
     DatabaseReference table;
     ArrayList<String> spinnerlist = new ArrayList<String>();
     EditText tour_name, tour_thing;
@@ -91,7 +91,6 @@ public class RegisterTourActivity extends AppCompatActivity {
         tour_thing=  (EditText)findViewById(R.id.tourDetail);
         tour_name=  (EditText)findViewById(R.id.tourName);
 
-
         showDialog();
 
         startbutton.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +105,6 @@ public class RegisterTourActivity extends AppCompatActivity {
                 showDialog(DILOG_E);
             }
         });
-
 
         Spinner spinner  = (Spinner) findViewById(R.id.spinner);
 
@@ -203,15 +201,17 @@ public class RegisterTourActivity extends AppCompatActivity {
 
 
     public void regiTour(){
+
         table= FirebaseDatabase.getInstance().getReference("tours");
         Tour newtour = new Tour(ID,tour_name.getText().toString(),tour_thing.getText().toString(),
                 tour_place, year_s, month_s, year_e, month_e);
-        table.child(tour_place).setValue(newtour);
+        table.child(tour_place).child(ID).setValue(newtour);
+
         tour_name.setText("");
         tour_thing.setText("");
         tour_place="";
-        //사진이랑날짜
-
+                //사진이랑날짜
+        
     }
 
 }
