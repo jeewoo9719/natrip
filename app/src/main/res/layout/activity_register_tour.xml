@@ -97,7 +97,7 @@
         android:layout_height="25dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="90dp"
-        android:src="@drawable/ic_action_name"
+        android:src="@drawable/ic_photo"
         app:layout_constraintStart_toStartOf="@+id/imgView1"
         app:layout_constraintTop_toTopOf="@+id/imgView1" />
 
@@ -116,7 +116,7 @@
         android:layout_height="25dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="90dp"
-        android:src="@drawable/ic_action_name"
+        android:src="@drawable/ic_photo"
         app:layout_constraintStart_toStartOf="@+id/imgView2"
         app:layout_constraintTop_toTopOf="@+id/imgView2" />
 
@@ -135,7 +135,7 @@
         android:layout_height="25dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="90dp"
-        android:src="@drawable/ic_action_name"
+        android:src="@drawable/ic_photo"
         app:layout_constraintStart_toStartOf="@+id/imgView3"
         app:layout_constraintTop_toTopOf="@+id/imgView3" />
 
