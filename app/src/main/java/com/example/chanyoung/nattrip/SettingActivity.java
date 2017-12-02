@@ -136,7 +136,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"투어 등록",Toast.LENGTH_SHORT).show();
-                if(user_guide==0) { //1로 고쳐야함
+                if(user_guide==1) { //1로 고쳐야함
                     Intent new_page = new Intent(SettingActivity.this, RegisterTourActivity.class);
                     new_page.putExtra("userID",ID);
                     startActivity(new_page);
