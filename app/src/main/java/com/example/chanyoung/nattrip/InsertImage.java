@@ -2,12 +2,14 @@ package com.example.chanyoung.nattrip;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -21,6 +23,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+
 import static android.R.attr.id;
 
 public class InsertImage extends AppCompatActivity {
@@ -28,7 +32,9 @@ public class InsertImage extends AppCompatActivity {
     private ImageButton mPhotoPickerButton;
     private Button mUploadBtn;
     private ImageView mImageView;
+    private static final String TAG="InsertImage";
 
+    private Uri filePath;
     private static final int GALLERY_INTENT =  2;
     private static final int CAMERA_REQUEST_CODE =  1;
 
@@ -41,9 +47,9 @@ public class InsertImage extends AppCompatActivity {
         setContentView(R.layout.activity_insert_image);
 
         mPhotoStorageReference = FirebaseStorage.getInstance().getReference();
-        mProgressDialog =new ProgressDialog(this);
+        mProgressDialog =new ProgressDialog(this);//저장소
 
-        mPhotoPickerButton = (ImageButton)findViewById(R.id.mPhotoPickerButton);
+        mPhotoPickerButton = (ImageButton)findViewById(R.id.mPhotoPickerButton);//갤러리 버튼
         mPhotoPickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +75,17 @@ public class InsertImage extends AppCompatActivity {
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
+            filePath = data.getData();
+            Log.d(TAG,"uri:" + String.valueOf(filePath));
+            try {
+                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                mImageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
             mProgressDialog.setMessage("Uploading ...");
             mProgressDialog.show();

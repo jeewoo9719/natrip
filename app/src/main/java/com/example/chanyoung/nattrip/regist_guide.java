@@ -1,18 +1,32 @@
 package com.example.chanyoung.nattrip;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -24,13 +38,37 @@ public class regist_guide extends AppCompatActivity {
     public TextView photo;
     public String ID;
     DatabaseReference table;
+    //사진
+    private ImageButton mPhotoPickerButton;
+    private ImageView mImageView;
+    private static final String TAG="InsertImage";
+    private Uri filePath;
+    private static final int GALLERY_INTENT =  2;
+    private static final int CAMERA_REQUEST_CODE =  1;
 
+    private ProgressDialog mProgressDialog;
+    private StorageReference mPhotoStorageReference;
+    //올리기
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist_guide);
+    //사진
+        mPhotoStorageReference = FirebaseStorage.getInstance().getReference();
+        mProgressDialog =new ProgressDialog(this);//저장소
 
+        mPhotoPickerButton = (ImageButton)findViewById(R.id.mPhotoPickerButton);//갤러리 버튼
+        mPhotoPickerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, GALLERY_INTENT);
+            }
+        });
+        mImageView =(ImageView)findViewById(R.id.imgView);
+    //올리기
         Bundle bundle = getIntent().getExtras();//클릭시 intent로 온 UserID 받음
         if(bundle != null){
             ID = bundle.getString("userID");
@@ -106,5 +144,50 @@ public class regist_guide extends AppCompatActivity {
             }
         });
 
+    }
+    //사진
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
+            filePath = data.getData();
+            Log.d(TAG,"uri:" + String.valueOf(filePath));
+            try {
+                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                mImageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
+            mProgressDialog.setMessage("Uploading ...");
+            mProgressDialog.show();
+
+            Uri uri = data.getData();
+            StorageReference filepath = mPhotoStorageReference.child("Photos").child(uri.getLastPathSegment());
+            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    mProgressDialog.dismiss();
+                    Toast.makeText(regist_guide.this, "Upload Done.",Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        /*else if(requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK){
+            mProgressDialog.setMessage("Uploading ...");
+            mProgressDialog.show();
+
+            Uri uri = data.getData();
+            StorageReference filepath = mPhotoStorageReference.child("Photos").child(uri.getLastPathSegment());
+            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    mProgressDialog.dismiss();
+                    Uri downloadUri = taskSnapshot.getDownloadUrl();
+                    Picasso.with(InsertImage.this).load(downloadUri).fit().centerCrop().into(mImageView);
+                    Toast.makeText(InsertImage.this,"Uploading Finished ...",Toast.LENGTH_LONG).show();
+                }
+            }); //.addOnFailureListener()
+        }*/
     }
 }
