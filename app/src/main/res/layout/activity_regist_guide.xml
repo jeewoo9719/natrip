@@ -127,7 +127,7 @@
         android:layout_height="36dp"
         android:layout_marginStart="200dp"
         android:layout_marginTop="180dp"
-        android:src="@drawable/ic_action_name"
+        android:src="@drawable/ic_photo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <ImageView
