@@ -29,8 +29,8 @@
             android:name=".Register"
             android:label="@string/title_activity_register" />
         <activity
-        android:name=".RegisterTourActivity"
-        android:label="RegisterTourActivity" />
+            android:name=".RegisterTourActivity"
+            android:label="RegisterTourActivity" />
         <activity
             android:name=".ModiInfoActivity"
             android:label="ModiInfoActivity" />
@@ -45,7 +45,8 @@
             android:label="SettingActivity" />
         <activity
             android:name=".TourActivity"
-            android:label="@string/title_activity_tour"></activity>
+            android:label="@string/title_activity_tour" />
+        <activity android:name=".regist_guide"></activity>
     </application>
 
 </manifest>

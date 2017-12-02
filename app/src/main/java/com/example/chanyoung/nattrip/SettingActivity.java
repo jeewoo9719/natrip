@@ -125,7 +125,7 @@ public class SettingActivity extends AppCompatActivity {
                 }
                 else{
                     //여기 바꿔주기
-                    Intent new_page = new Intent(SettingActivity.this,ModiInfoActivity.class);
+                    Intent new_page = new Intent(SettingActivity.this,regist_guide.class);
                     new_page.putExtra("userID",ID);
                     startActivity(new_page);
                 }
