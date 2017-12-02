@@ -107,7 +107,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(),"사용자 정보 수정",Toast.LENGTH_SHORT).show();
                 Intent new_page = new Intent(SettingActivity.this,ModiInfoActivity.class);
-                new_page.putExtra("id",ID);
+                new_page.putExtra("userID",ID);
                 startActivity(new_page);
             }
         });
@@ -126,7 +126,7 @@ public class SettingActivity extends AppCompatActivity {
                 else{
                     //여기 바꿔주기
                     Intent new_page = new Intent(SettingActivity.this,ModiInfoActivity.class);
-                    new_page.putExtra("id",ID);
+                    new_page.putExtra("userID",ID);
                     startActivity(new_page);
                 }
             }
@@ -138,7 +138,7 @@ public class SettingActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),"투어 등록",Toast.LENGTH_SHORT).show();
                 if(user_guide==0) { //1로 고쳐야함
                     Intent new_page = new Intent(SettingActivity.this, RegisterTourActivity.class);
-                    new_page.putExtra("id",ID);
+                    new_page.putExtra("userID",ID);
                     startActivity(new_page);
                 }
                 else{
