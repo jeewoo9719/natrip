@@ -45,7 +45,7 @@ public class RegisterTourActivity extends AppCompatActivity {
     int year_s,month_s,day_s,day_e,year_e,month_e;
     Button startbutton,endbutton;
     static  final int DILOG_S=0;
-    static  final int DILOG_E=0;
+    static  final int DILOG_E=1;
     //사진
     private ImageButton mPhotoPickerButton1;
     private ImageView mImageView1;
@@ -238,14 +238,11 @@ public class RegisterTourActivity extends AppCompatActivity {
         if(id1==DILOG_S) {
             return new DatePickerDialog(this, dpickerListner, year_s, month_s,day_s);
         }
-        return null;
-    }
-    protected Dialog onCreateDialog2(int id){
-        if(id==DILOG_E) {
+        else{
             return new DatePickerDialog(this, dpickerListner2, year_e, month_e,day_e);
         }
-        return null;
     }
+
     private DatePickerDialog.OnDateSetListener dpickerListner
             =new DatePickerDialog.OnDateSetListener(){
         @Override
