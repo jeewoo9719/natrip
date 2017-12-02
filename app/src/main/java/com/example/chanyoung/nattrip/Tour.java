@@ -10,13 +10,13 @@ public class Tour {
     private String guideID;
     //사진
     private String tourplace;
-    private int startyear;
-    private int startmonth;
-    private int endyear;
-    private int endmonth;
+    private String startyear;
+    private String startmonth;
+    private String endyear;
+    private String endmonth;
 
     Tour(){}
-    Tour(String guideID, String name,  String  detail, String  place, int sy, int  sm, int ey, int em){
+    Tour(String guideID, String name,  String  detail, String  place, String sy, String  sm, String ey, String em){
         this.guideID=guideID;
         this.tourname=name;
         this.tourplace=place;
@@ -37,4 +37,17 @@ public class Tour {
 
     public String getplace(){return tourplace;}
     public void setPlace(String place){this.tourplace=place;}
+
+    public  String getStartyear(){return startyear;}
+    public void setStartyear(String sy){this.startyear=sy;}
+
+    public  String getStartmonth(){return startmonth;}
+    public void setStartmonth(String sy){this.startmonth=sy;}
+
+    public  String getEndyear(){return endyear;}
+    public void setEndyear(String sy){this.endyear=sy;}
+    public  String getEndmonth(){return endmonth;}
+    public void setEndmonth(String sy){this.endmonth=sy;}
+
+
 }

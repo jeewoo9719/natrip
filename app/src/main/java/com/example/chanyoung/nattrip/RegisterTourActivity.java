@@ -42,7 +42,8 @@ public class RegisterTourActivity extends AppCompatActivity {
     ArrayList<String> spinnerlist = new ArrayList<String>();
     EditText tour_name, tour_thing;
     String tour_place;
-    int year_s,month_s,day_s,day_e,year_e,month_e;
+    public int year_s,month_s,day_s,day_e,year_e,month_e;
+    public String years,months,yeare,monthe;
     Button startbutton,endbutton;
     static  final int DILOG_S=0;
     static  final int DILOG_E=1;
@@ -250,6 +251,9 @@ public class RegisterTourActivity extends AppCompatActivity {
             year_s=year;
             month_s=monthOfYear+1;
             day_s=day;
+            years=String.valueOf(year_s);
+            months=String.valueOf(month_s);
+
         }
     };
 
@@ -260,6 +264,8 @@ public class RegisterTourActivity extends AppCompatActivity {
             year_e=year;
             month_e=monthOfYear+1;
             day_e=day;
+            yeare=String.valueOf(year_e);
+            monthe=String.valueOf(month_e);
         }
     };
 
@@ -269,7 +275,7 @@ public class RegisterTourActivity extends AppCompatActivity {
 
         table= FirebaseDatabase.getInstance().getReference("tours");
         Tour newtour = new Tour(ID,tour_name.getText().toString(),tour_thing.getText().toString(),
-                tour_place, year_s, month_s, year_e, month_e);
+                tour_place, years, months, yeare, monthe);
         table.child(tour_place).child(ID).setValue(newtour);
 
         tour_name.setText("");
