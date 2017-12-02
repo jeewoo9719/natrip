@@ -41,10 +41,15 @@ public class regist_guide extends AppCompatActivity {
     //사진
     private ImageButton mPhotoPickerButton;
     private ImageView mImageView;
+    private ImageButton mPhotoPickerButtonPose;
+    private ImageView mImageViewPose;
+
     private static final String TAG="InsertImage";
     private Uri filePath;
     private static final int GALLERY_INTENT =  2;
     private static final int CAMERA_REQUEST_CODE =  1;
+    private boolean pose=false;
+    //포즈 사진인 경우 true, 그냥 사진인 경우 false
 
     private ProgressDialog mProgressDialog;
     private StorageReference mPhotoStorageReference;
@@ -62,13 +67,25 @@ public class regist_guide extends AppCompatActivity {
         mPhotoPickerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pose=false;//신분증 사진이다
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, GALLERY_INTENT);
+            }
+        });
+        mPhotoPickerButtonPose = (ImageButton)findViewById(R.id.mPhotoPickerButtonPose);//갤러리 버튼
+        mPhotoPickerButtonPose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pose=true;//포즈사진이다
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType("image/*");
                 startActivityForResult(intent, GALLERY_INTENT);
             }
         });
         mImageView =(ImageView)findViewById(R.id.imgView);
-    //올리기
+        mImageViewPose =(ImageView)findViewById(R.id.imgViewPose);
+        //올리기
         Bundle bundle = getIntent().getExtras();//클릭시 intent로 온 UserID 받음
         if(bundle != null){
             ID = bundle.getString("userID");
@@ -148,13 +165,24 @@ public class regist_guide extends AppCompatActivity {
     //사진
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
-        if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
+        if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK&&pose==false){
             filePath = data.getData();
             Log.d(TAG,"uri:" + String.valueOf(filePath));
             try {
                 //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 mImageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK&&pose==true){
+            filePath = data.getData();
+            Log.d(TAG,"uri:" + String.valueOf(filePath));
+            try {
+                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                mImageViewPose.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
