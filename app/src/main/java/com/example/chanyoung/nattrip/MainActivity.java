@@ -8,12 +8,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,10 +31,13 @@ public class MainActivity extends AppCompatActivity {
 
     MyAdapter adapter;
     ListView listView;
+    TextView placeNameView;
+    ImageView placeImage;
     BottomNavigationView bottomNavigationView;
     ArrayList<Tour> tourList;
     DatabaseReference table; //데이터베이스 레퍼런스 객체 선언
     String ID = null;
+    String place = "Paris"; //null로 바꾸기
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,22 +49,30 @@ public class MainActivity extends AppCompatActivity {
 
     public void init() {
         listView = (ListView) findViewById(R.id.listView);
+        placeNameView = (TextView) findViewById(R.id.placeName);
+        placeImage = (ImageView)findViewById(R.id.placeImage);
         tourList = new ArrayList<>();
         adapter = new MyAdapter(this, R.layout.row, tourList);
-        //customAdapter = new MyAdapter(this,R.layout.tour,userList);
         listView.setAdapter(adapter);
-        initDB();
-        Bundle bundle = getIntent().getExtras();//클릭시 intent로 온 UserID 받음
+
+        Bundle bundle = getIntent().getExtras();//클릭시 searchActivity에서 intent로 온 UserID, 지역 받음
         if(bundle != null){
-            ID = bundle.getString("userID");
+            ID = bundle.getString("userID"); //search에서 가져온 ID
+            //place = bundle.getString("place");//search에서 가져온 지역
         }
+        initDB();
+        placeNameView.setText(place); //선택 지역 표시
+        //placeImage.setImageDrawable(); storage에서 이미지 가져오기
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                Tour tour = (Tour) listView.getItemAtPosition(pos);
-                Intent intent = new Intent(MainActivity.this, TourActivity.class);
-                intent.putExtra("userID",ID);
-                intent.putExtra("guideName", tour.getGuideName());
-                startActivity(intent);
+                Tour tour=(Tour)adapterView.getAdapter().getItem(pos);
+
+                Intent tourActivity = new Intent(MainActivity.this, TourActivity.class);
+                tourActivity.putExtra("userID",ID);
+                tourActivity.putExtra("place",place);
+                tourActivity.putExtra("guideID",tour.getGuideID());
+                Log.v("guideIDatMain74",tour.getGuideID());
+               startActivity(tourActivity);
             }
         });
 
@@ -99,8 +112,7 @@ public class MainActivity extends AppCompatActivity {
     };
     public void initDB() {//데이터베스 연결
         table = FirebaseDatabase.getInstance().getReference("tours");
-        //makeData();
-        table.addValueEventListener(new ValueEventListener(){
+        table.child(place).addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 tourList.clear();
@@ -146,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
             TextView tourPlace = (TextView) v.findViewById(R.id.tourPlace);
             TextView tourDetail = (TextView) v.findViewById(R.id.tourDetail);
 
-            guideID.setText(tour.getGuideName());//매핑작업(메시지, ID, 시간순으로 보여줌)
+            guideID.setText(tour.getGuideID());//매핑작업(메시지, ID, 시간순으로 보여줌)
             tourName.setText(tour.getTourName());
             tourPlace.setText(tour.getplace());
             tourDetail.setText(tour.getDetail());

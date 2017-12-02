@@ -7,7 +7,7 @@ package com.example.chanyoung.nattrip;
 public class Tour {
     private String tourname;
     private String tourDetail;
-    private String guideName;
+    private String guideID;
     //사진
     private String tourplace;
     private int startyear;
@@ -16,8 +16,8 @@ public class Tour {
     private int endmonth;
 
     Tour(){}
-    Tour(String guideName, String name,  String  detail, String  place, int sy, int  sm, int ey, int em){
-        this.guideName = guideName;
+    Tour(String guideID, String name,  String  detail, String  place, int sy, int  sm, int ey, int em){
+        this.guideID=guideID;
         this.tourname=name;
         this.tourplace=place;
         this.tourDetail=detail;
@@ -26,15 +26,15 @@ public class Tour {
         this.endyear=ey;
         this.endmonth=em;
     }
-    public String getGuideName(){return guideName;}
-    public void setGuideName(String name){this.guideName=guideName;};
-    ;
+    public String getGuideID(){return guideID;}
+    public void setGuideID(String guideID){this.guideID=guideID;}
+
     public String getTourName(){return tourname;}
-    public void setTourName(String name){this.tourname=name;};
+    public void setTourName(String name){this.tourname=name;}
 
     public String getDetail(){return tourDetail;}
-    public void setDetail(String detail){this.tourDetail=detail;};
+    public void setDetail(String detail){this.tourDetail=detail;}
 
     public String getplace(){return tourplace;}
-    public void setPlace(String place){this.tourplace=place;};
+    public void setPlace(String place){this.tourplace=place;}
 }
