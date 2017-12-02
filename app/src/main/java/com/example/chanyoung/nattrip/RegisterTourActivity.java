@@ -2,11 +2,16 @@ package com.example.chanyoung.nattrip;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,11 +19,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -33,6 +46,23 @@ public class RegisterTourActivity extends AppCompatActivity {
     Button startbutton,endbutton;
     static  final int DILOG_S=0;
     static  final int DILOG_E=0;
+    //사진
+    private ImageButton mPhotoPickerButton1;
+    private ImageView mImageView1;
+    private ImageButton mPhotoPickerButton2;
+    private ImageView mImageView2;
+    private ImageButton mPhotoPickerButton3;
+    private ImageView mImageView3;
+    private int index;//몇번째 사진인지
+    // 3개니까 1~3까지
+
+    private static final String TAG="InsertImage";
+    private Uri filePath;
+    private static final int GALLERY_INTENT =  2;
+    private static final int CAMERA_REQUEST_CODE =  1;
+    private ProgressDialog mProgressDialog;
+    private StorageReference mPhotoStorageReference;
+    //올리기
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -71,6 +101,44 @@ public class RegisterTourActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_tour);
+        //사진
+        mPhotoStorageReference = FirebaseStorage.getInstance().getReference();
+        mProgressDialog =new ProgressDialog(this);//저장소
+
+        mPhotoPickerButton1 = (ImageButton)findViewById(R.id.mPhotoPickerButton1);//갤러리 버튼
+        mPhotoPickerButton1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                index=1;
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, GALLERY_INTENT);
+            }
+        });
+        mPhotoPickerButton2 = (ImageButton)findViewById(R.id.mPhotoPickerButton2);//갤러리 버튼
+        mPhotoPickerButton2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                index=2;
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, GALLERY_INTENT);
+            }
+        });
+        mPhotoPickerButton3 = (ImageButton)findViewById(R.id.mPhotoPickerButton3);//갤러리 버튼
+        mPhotoPickerButton3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                index=3;
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(intent, GALLERY_INTENT);
+            }
+        });
+        mImageView1 =(ImageView)findViewById(R.id.imgView1);
+        mImageView2 =(ImageView)findViewById(R.id.imgView2);
+        mImageView3 =(ImageView)findViewById(R.id.imgView3);
+        //올리기
 
         table = FirebaseDatabase.getInstance().getReference("Tours");
 
@@ -212,6 +280,72 @@ public class RegisterTourActivity extends AppCompatActivity {
         tour_place="";
                 //사진이랑날짜
         
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK&&index==1){
+            filePath = data.getData();
+            Log.d(TAG,"uri:" + String.valueOf(filePath));
+            try {
+                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                mImageView1.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK&&index==2){
+            filePath = data.getData();
+            Log.d(TAG,"uri:" + String.valueOf(filePath));
+            try {
+                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                mImageView2.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK&&index==3){
+            filePath = data.getData();
+            Log.d(TAG,"uri:" + String.valueOf(filePath));
+            try {
+                //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                mImageView3.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK){
+            mProgressDialog.setMessage("Uploading ...");
+            mProgressDialog.show();
+
+            Uri uri = data.getData();
+            StorageReference filepath = mPhotoStorageReference.child("Photos").child(uri.getLastPathSegment());
+            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    mProgressDialog.dismiss();
+                    Toast.makeText(RegisterTourActivity.this, "Upload Done.",Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        /*else if(requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK){
+            mProgressDialog.setMessage("Uploading ...");
+            mProgressDialog.show();
+
+            Uri uri = data.getData();
+            StorageReference filepath = mPhotoStorageReference.child("Photos").child(uri.getLastPathSegment());
+            filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    mProgressDialog.dismiss();
+                    Uri downloadUri = taskSnapshot.getDownloadUrl();
+                    Picasso.with(InsertImage.this).load(downloadUri).fit().centerCrop().into(mImageView);
+                    Toast.makeText(InsertImage.this,"Uploading Finished ...",Toast.LENGTH_LONG).show();
+                }
+            }); //.addOnFailureListener()
+        }*/
     }
 
 }

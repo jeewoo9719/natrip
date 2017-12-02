@@ -17,7 +17,7 @@
         android:layout_height="131dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="120dp"
         android:ems="10"
         android:inputType="textMultiLine"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,9 +28,8 @@
         android:id="@+id/tourName"
         android:layout_width="151dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Tour_Name"
         android:inputType="textPersonName"
@@ -41,9 +40,8 @@
         android:id="@+id/btnStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:text="Start"
         app:layout_constraintStart_toEndOf="@+id/tourName"
         app:layout_constraintTop_toTopOf="parent" />
@@ -54,7 +52,7 @@
         android:layout_height="33dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/place" />
@@ -65,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:text="Place"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,7 +73,7 @@
         android:id="@+id/btnEnd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:text="End"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnStart"
@@ -87,11 +85,69 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="5dp"
         android:text="등록"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tourDetail" />
+
+    <ImageButton
+        android:id="@+id/mPhotoPickerButton1"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="90dp"
+        android:src="@drawable/ic_action_name"
+        app:layout_constraintStart_toStartOf="@+id/imgView1"
+        app:layout_constraintTop_toTopOf="@+id/imgView1" />
+
+    <ImageView
+        android:id="@+id/imgView1"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <ImageButton
+        android:id="@+id/mPhotoPickerButton2"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="90dp"
+        android:src="@drawable/ic_action_name"
+        app:layout_constraintStart_toStartOf="@+id/imgView2"
+        app:layout_constraintTop_toTopOf="@+id/imgView2" />
+
+    <ImageView
+        android:id="@+id/imgView2"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
+    <ImageButton
+        android:id="@+id/mPhotoPickerButton3"
+        android:layout_width="50dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="90dp"
+        android:src="@drawable/ic_action_name"
+        app:layout_constraintStart_toStartOf="@+id/imgView3"
+        app:layout_constraintTop_toTopOf="@+id/imgView3" />
+
+    <ImageView
+        android:id="@+id/imgView3"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="255dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+
 </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.BottomNavigationView
