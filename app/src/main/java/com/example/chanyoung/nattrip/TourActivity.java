@@ -7,8 +7,11 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +42,9 @@ public class TourActivity extends AppCompatActivity {
     //ImageView guidePictureView
     //String guidePictureURL
     //TextView guidePhoneView;
+
+    //투어 예약하기
+    Button btnReservation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -134,6 +140,22 @@ public class TourActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+
+        btnReservation = (Button)findViewById(R.id.btnReservation);
+        btnReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //투어에 예약자 저장
+                table = FirebaseDatabase.getInstance().getReference("tours");
+                table.child(place).child(guideID).child("reserveUserID").setValue(ID);
+
+                table = FirebaseDatabase.getInstance().getReference("messageDB").push();
+                table.child("reserveUserID").setValue(ID);
+                table.child("guideID").setValue(guideID);
+
+                Toast.makeText(TourActivity.this, "Reservation Done.",Toast.LENGTH_LONG).show();
             }
         });
 

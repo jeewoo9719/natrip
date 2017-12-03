@@ -8,15 +8,21 @@ public class Tour {
     private String tourname;
     private String tourDetail;
     private String guideID;
-    //사진
+
     private String tourplace;
     private String startyear;
     private String startmonth;
     private String endyear;
     private String endmonth;
+
+    //사진
     private String image1FilePath;
     private String image2FilePath;
     private String image3FilePath;
+
+    //예약한 사람 ID
+    private  String reserveUserID;
+
 
     Tour(){}
     Tour(String guideID, String name,  String  detail, String  place, String sy, String  sm, String ey, String em, String image1FilePath, String image2FilePath, String image3FilePath){
@@ -64,5 +70,8 @@ public class Tour {
 
     public  String getImage3FilePath(){return image3FilePath;}
     public void setImage3FilePath(String image3FilePath){this.image1FilePath=image3FilePath;}
+
+    public  String getReserveUserID(){return reserveUserID;}
+    public void setReserveUserID(String reserveUserID){this.reserveUserID=reserveUserID;}
 
 }
