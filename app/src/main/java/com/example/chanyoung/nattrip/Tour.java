@@ -60,9 +60,9 @@ public class Tour {
     public void setImage1FilePath(String image1FilePath){this.image1FilePath=image1FilePath;}
 
     public  String getImage2FilePath(){return image2FilePath;}
-    public void setImage2FilePath(String image1FilePath){this.image1FilePath=image2FilePath;}
+    public void setImage2FilePath(String image2FilePath){this.image2FilePath=image2FilePath;}
 
     public  String getImage3FilePath(){return image3FilePath;}
-    public void setImage3FilePath(String image1FilePath){this.image1FilePath=image3FilePath;}
+    public void setImage3FilePath(String image3FilePath){this.image1FilePath=image3FilePath;}
 
 }

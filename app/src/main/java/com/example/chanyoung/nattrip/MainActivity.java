@@ -2,12 +2,14 @@ package com.example.chanyoung.nattrip;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -154,6 +157,12 @@ public class MainActivity extends AppCompatActivity {
             TextView tourName = (TextView) v.findViewById(R.id.tourName);
             TextView tourPlace = (TextView) v.findViewById(R.id.tourPlace);
             TextView tourDetail = (TextView) v.findViewById(R.id.tourDetail);
+            ImageView tourimageView = (ImageView)v.findViewById(R.id.tourImage);
+
+            //일단 투어 이미지 했는데 가이드 얼굴로 바꾸기
+            Uri tourImageUri = Uri.parse(tour.getImage1FilePath().toString());
+            Log.v("로그",/*tourImageUri.toString()+*/"...."+tour.getImage1FilePath().toString());
+            Glide.with(v.getContext()).load(tourImageUri).into(tourimageView);
 
             guideID.setText(tour.getGuideID());//매핑작업(메시지, ID, 시간순으로 보여줌)
             tourName.setText(tour.getTourName());
