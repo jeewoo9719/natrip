@@ -256,6 +256,8 @@ public class RegisterTourActivity extends AppCompatActivity {
             years=String.valueOf(year_s);
             months=String.valueOf(month_s);
 
+            startbutton.setText(years+"/"+months);
+
         }
     };
 
@@ -268,6 +270,8 @@ public class RegisterTourActivity extends AppCompatActivity {
             day_e=day;
             yeare=String.valueOf(year_e);
             monthe=String.valueOf(month_e);
+            
+            endbutton.setText(yeare+"/"+monthe);
         }
     };
     public void regiTour(){
