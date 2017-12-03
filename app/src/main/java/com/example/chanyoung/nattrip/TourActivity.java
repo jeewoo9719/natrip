@@ -1,14 +1,16 @@
 package com.example.chanyoung.nattrip;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +29,9 @@ public class TourActivity extends AppCompatActivity {
     TextView placeView;
     TextView tourNameView;
     TextView tourDetailView;
+    ImageView tourImageView1;
+    ImageView tourImageView2;
+    ImageView tourImageView3;
 
     //가이드 정보
     TextView guideNameView;
@@ -76,6 +81,9 @@ public class TourActivity extends AppCompatActivity {
         placeView = (TextView)findViewById(R.id.place);
         tourNameView = (TextView)findViewById(R.id.tourName);
         tourDetailView = (TextView)findViewById(R.id.tourDetail);
+        tourImageView1 = (ImageView)findViewById(R.id.tourImage1);
+        tourImageView2 = (ImageView)findViewById(R.id.tourImage2);
+        tourImageView3 = (ImageView)findViewById(R.id.tourImage3);
 
         guideEmailView = (TextView)findViewById(R.id.guideEmail);
         guideNameView = (TextView)findViewById(R.id.guideName);
@@ -98,6 +106,14 @@ public class TourActivity extends AppCompatActivity {
                 placeView.setText(place);
                 tourNameView.setText(dataSnapshot.child("tourName").getValue().toString());
                 tourDetailView.setText(dataSnapshot.child("detail").getValue().toString());
+                Uri image1Uri = Uri.parse(dataSnapshot.child("image1FilePath").getValue().toString());
+                Uri image2Uri = Uri.parse(dataSnapshot.child("image2FilePath").getValue().toString());
+                Uri image3Uri = Uri.parse(dataSnapshot.child("image3FilePath").getValue().toString());
+
+                Glide.with(TourActivity.this).load(image1Uri).into(tourImageView1);
+                Glide.with(TourActivity.this).load(image2Uri).into(tourImageView2);
+                Glide.with(TourActivity.this).load(image3Uri).into(tourImageView3);
+
             }
 
             @Override

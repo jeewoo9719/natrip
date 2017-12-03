@@ -8,7 +8,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -66,12 +65,10 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 Tour tour=(Tour)adapterView.getAdapter().getItem(pos);
-
                 Intent tourActivity = new Intent(MainActivity.this, TourActivity.class);
                 tourActivity.putExtra("userID",ID);
                 tourActivity.putExtra("place",place);
                 tourActivity.putExtra("guideID",tour.getGuideID());
-                Log.v("guideIDatMain74",tour.getGuideID());
                startActivity(tourActivity);
             }
         });

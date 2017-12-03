@@ -11,7 +11,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -58,7 +57,10 @@ public class RegisterTourActivity extends AppCompatActivity {
     // 3개니까 1~3까지
 
     private static final String TAG="InsertImage";
-    private Uri filePath;
+    private Uri showImage;
+    private Uri image1FilePath;
+    private Uri image2FilePath;
+    private Uri image3FilePath;
     private static final int GALLERY_INTENT =  2;
     private static final int CAMERA_REQUEST_CODE =  1;
     private ProgressDialog mProgressDialog;
@@ -268,52 +270,49 @@ public class RegisterTourActivity extends AppCompatActivity {
             monthe=String.valueOf(month_e);
         }
     };
-
-
-
     public void regiTour(){
 
         table= FirebaseDatabase.getInstance().getReference("tours");
         Tour newtour = new Tour(ID,tour_name.getText().toString(),tour_thing.getText().toString(),
-                tour_place, years, months, yeare, monthe);
+                tour_place, years, months, yeare, monthe,image1FilePath.toString(),image2FilePath.toString(),image3FilePath.toString());
         table.child(tour_place).child(ID).setValue(newtour);
 
         tour_name.setText("");
         tour_thing.setText("");
         tour_place="";
-                //사진이랑날짜
+        //사진이랑날짜
         
     }
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);
         if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK&&index==1){
-            filePath = data.getData();
-            Log.d(TAG,"uri:" + String.valueOf(filePath));
+            showImage = data.getData();
             try {
                 //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), showImage);
                 mImageView1.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
         if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK&&index==2){
-            filePath = data.getData();
-            Log.d(TAG,"uri:" + String.valueOf(filePath));
+            showImage = data.getData();
+            //Log.d(TAG,"uri:" + String.valueOf(filePathImage1));
             try {
                 //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), showImage);
                 mImageView2.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
         if(requestCode == GALLERY_INTENT && resultCode == RESULT_OK&&index==3){
-            filePath = data.getData();
-            Log.d(TAG,"uri:" + String.valueOf(filePath));
+            showImage = data.getData();
+            //Log.d(TAG,"uri:" + String.valueOf(filePath));
             try {
                 //Uri 파일을 Bitmap으로 만들어서 ImageView에 집어 넣는다.
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), showImage);
                 mImageView3.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -324,10 +323,19 @@ public class RegisterTourActivity extends AppCompatActivity {
             mProgressDialog.show();
 
             Uri uri = data.getData();
-            StorageReference filepath = mPhotoStorageReference.child("Photos").child(uri.getLastPathSegment());
+            StorageReference filepath = mPhotoStorageReference.child("Photos").child("tours").child(ID).child(uri.getLastPathSegment());
             filepath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    if(index == 1){
+                        image1FilePath = taskSnapshot.getDownloadUrl();
+                    }
+                    if(index == 2){
+                        image2FilePath = taskSnapshot.getDownloadUrl();
+                    }
+                    if(index == 3){
+                        image3FilePath = taskSnapshot.getDownloadUrl();
+                    }
                     mProgressDialog.dismiss();
                     Toast.makeText(RegisterTourActivity.this, "Upload Done.",Toast.LENGTH_LONG).show();
                 }
