@@ -169,6 +169,7 @@ public class TourActivity extends AppCompatActivity {
                 table.child("time").setValue(mSimpleDateFormat.format(System.currentTimeMillis()));
                 table.child("userName").setValue("admin");
                 Toast.makeText(TourActivity.this, "Reservation Done.",Toast.LENGTH_LONG).show();
+                finish();
             }
         });
 

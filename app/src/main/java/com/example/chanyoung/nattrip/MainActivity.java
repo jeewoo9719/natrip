@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -70,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             endTourDateM = bundle.getInt("endTourDateM");
             endTourDateD = bundle.getInt("endTourDateD");
         }
+
         initDB();
         placeNameView.setText(tourPlace); //선택 지역 표시
         //placeImage.setImageDrawable(); storage에서 이미지 가져오기
@@ -157,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
                 LayoutInflater inflater = (LayoutInflater) this.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 v = inflater.inflate(R.layout.row, parent, false);
             }
-
             // TextView에 Message 출력하는 기능 구현
             Tour tour = arrayList.get(position);
             //현재 행에 해당하는 chat 정보를 가져옴, position
@@ -169,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
 
             //일단 투어 이미지 했는데 가이드 얼굴로 바꾸기
             Uri tourImageUri = Uri.parse(tour.getImage1FilePath().toString());
-            Log.v("로그",/*tourImageUri.toString()+*/"...."+tour.getImage1FilePath().toString());
             Glide.with(v.getContext()).load(tourImageUri).into(tourimageView);
 
             guideID.setText(tour.getGuideID());//매핑작업(메시지, ID, 시간순으로 보여줌)

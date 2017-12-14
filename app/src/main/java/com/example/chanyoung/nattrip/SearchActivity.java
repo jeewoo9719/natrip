@@ -132,7 +132,7 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher{
                     startActivity(main_page);
                     break;
                 case R.id.action_MyTour:
-                    Intent chat_page = new Intent(SearchActivity.this,MainActivity.class);
+                    Intent chat_page = new Intent(SearchActivity.this,register_list.class);
                     chat_page.putExtra("userID",ID);
                     chat_page.putExtra("selectedID",item.getItemId());
                     startActivity(chat_page);
