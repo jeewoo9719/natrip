@@ -7,15 +7,15 @@
     tools:context="com.example.chanyoung.nattrip.SearchActivity">
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <Button
             android:id="@+id/date_picker"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="650dp"
             android:layout_height="45dp"
-            android:layout_marginBottom="13dp"
+            android:layout_marginTop="48dp"
             android:background="@drawable/buttonshape"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"
@@ -25,15 +25,15 @@
             android:textColor="#FFFFFF"
             android:textColorLink="@android:color/background_dark"
             android:textSize="15sp"
-            app:layout_constraintBottom_toTopOf="@+id/date_picker2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/listView2" />
 
         <Button
             android:id="@+id/date_picker2"
             android:layout_width="650dp"
             android:layout_height="45dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/buttonshape"
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"
@@ -42,36 +42,40 @@
             android:text="투어 종료일"
             android:textColor="#FFFFFF"
             android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date_picker" />
 
 
         <ListView
             android:id="@+id/listView2"
             android:layout_width="wrap_content"
-            android:layout_height="250dp"
+            android:layout_height="249dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/editText"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toTopOf="@+id/date_picker"
-            tools:layout_editor_absoluteX="0dp" />
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText" />
 
         <EditText
             android:id="@+id/editText"
-            android:layout_width="247dp"
+            android:layout_width="500dp"
             android:layout_height="46dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:hint="나라를 검색하세요."
-            app:layout_constraintBottom_toTopOf="@+id/listView2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="8dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.46"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <TextView
@@ -81,7 +85,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="투어 시작일"
             app:layout_constraintBottom_toTopOf="@+id/date_picker"
             app:layout_constraintEnd_toStartOf="@+id/textViewStartDate"
@@ -89,7 +93,7 @@
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/listView2"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.19" />
 
 
         <TextView
@@ -98,10 +102,11 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="120dp"
             android:layout_marginStart="70dp"
-            android:layout_marginTop="317dp"
+            android:layout_marginTop="325dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/textView17"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/textView19"
@@ -110,12 +115,13 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="투어 종료일"
             app:layout_constraintBottom_toTopOf="@+id/date_picker"
             app:layout_constraintEnd_toStartOf="@+id/textViewEndDate"
             app:layout_constraintStart_toEndOf="@+id/textViewStartDate"
-            app:layout_constraintTop_toBottomOf="@+id/listView2" />
+            app:layout_constraintTop_toBottomOf="@+id/listView2"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/textViewEndDate"
@@ -124,31 +130,33 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="317dp"
+            android:layout_marginTop="325dp"
             app:layout_constraintBottom_toTopOf="@+id/date_picker"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.51"
             app:layout_constraintStart_toEndOf="@+id/textView19"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.00999999" />
 
         <Button
             android:id="@+id/searchTour"
-            android:layout_width="80dp"
-            android:layout_height="45dp"
+            android:layout_width="650dp"
+            android:layout_height="49dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/colorname"
 
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+
+            android:background="@color/colorname"
             android:text="투어 검색"
             android:textColor="@color/back"
             android:textSize="15sp"
-
-            app:layout_constraintBottom_toTopOf="@+id/listView2"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editText"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/date_picker2"
+            app:layout_constraintVertical_bias="0.0" />
 
     </android.support.constraint.ConstraintLayout>
 
