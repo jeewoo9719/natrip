@@ -38,8 +38,10 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     ArrayList<Tour> tourList;
     DatabaseReference table; //데이터베이스 레퍼런스 객체 선언
+    int startTourDateY, startTourDateM,startTourDateD;  //투어 시작일 받는 인자
+    int endTourDateY, endTourDateM,endTourDateD;  //투어 종료일
     String ID = null;
-    String place = "Paris"; //null로 바꾸기
+    String tourPlace; //null로 바꾸기
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,17 +62,23 @@ public class MainActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();//클릭시 searchActivity에서 intent로 온 UserID, 지역 받음
         if(bundle != null){
             ID = bundle.getString("userID"); //search에서 가져온 ID
-            //place = bundle.getString("place");//search에서 가져온 지역
+            tourPlace = bundle.getString("tourPlace");
+            startTourDateY = bundle.getInt("stratTourDateY");
+            startTourDateM = bundle.getInt("stratTourDateM");
+            startTourDateD = bundle.getInt("stratTourDateD");
+            endTourDateY = bundle.getInt("endTourDateY");
+            endTourDateM = bundle.getInt("endTourDateM");
+            endTourDateD = bundle.getInt("endTourDateD");
         }
         initDB();
-        placeNameView.setText(place); //선택 지역 표시
+        placeNameView.setText(tourPlace); //선택 지역 표시
         //placeImage.setImageDrawable(); storage에서 이미지 가져오기
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
                 Tour tour=(Tour)adapterView.getAdapter().getItem(pos);
                 Intent tourActivity = new Intent(MainActivity.this, TourActivity.class);
                 tourActivity.putExtra("userID",ID);
-                tourActivity.putExtra("place",place);
+                tourActivity.putExtra("tourPlace",tourPlace);
                 tourActivity.putExtra("guideID",tour.getGuideID());
                startActivity(tourActivity);
             }
@@ -112,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
     };
     public void initDB() {//데이터베스 연결
         table = FirebaseDatabase.getInstance().getReference("tours");
-        table.child(place).addValueEventListener(new ValueEventListener(){
+        table.child(tourPlace).addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 tourList.clear();
