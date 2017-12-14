@@ -8,24 +8,6 @@
     android:orientation="vertical"
     tools:context="com.example.chanyoung.nattrip.ChatList">
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:id="@+id/userContainer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/nameSearch"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/gotoChat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="대화상대ID"/>
-
-    </LinearLayout>
-
     <ListView
         android:id="@+id/listChat"
         android:layout_width="match_parent"

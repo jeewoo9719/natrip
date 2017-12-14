@@ -16,7 +16,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,7 +39,6 @@ public class ChatActivity extends AppCompatActivity {
     String nameSearch;
     DatabaseReference table; //데이터베이스 레퍼런스 객체 선언
 
-    String messageDB;
     String ID;
     String chatSearch;
     @Override
@@ -70,11 +68,6 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     public void initDB() {//데이터베스 연결
-        //if (userName.compareTo(nameSearch) < 0) {//대화 상대에 따라 다른 데이터 베이스 생성
-        //    messageDB = userName + nameSearch;
-        //} else {
-        //    messageDB = nameSearch + userName;
-        //}
 
         table = FirebaseDatabase.getInstance().getReference("messageDB").child(chatSearch);
         table.addValueEventListener(new ValueEventListener() {

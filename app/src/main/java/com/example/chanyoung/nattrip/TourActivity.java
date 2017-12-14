@@ -172,9 +172,9 @@ public class TourActivity extends AppCompatActivity {
                 }
                 table=FirebaseDatabase.getInstance().getReference("messageDB").child(chatID).push();
                 //table.child("").setValue(guideID);
-                table.child("message").setValue("hi man");
+                table.child("message").setValue("");
                 table.child("time").setValue(mSimpleDateFormat.format(System.currentTimeMillis()));
-                table.child("userName").setValue("admin");
+                table.child("userName").setValue("");
                 Toast.makeText(TourActivity.this, "Reservation Done.",Toast.LENGTH_LONG).show();
                 finish();
             }
