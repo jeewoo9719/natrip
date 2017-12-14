@@ -45,7 +45,7 @@
             android:id="@+id/tourDetail"
             android:layout_width="fill_parent"
             android:layout_height="126dp"
-            android:layout_marginTop="460dp"
+            android:layout_marginTop="550dp"
             android:textColor="#000000"
             android:textSize="17sp" />
 
@@ -70,21 +70,21 @@
         <ImageView
             android:id="@+id/tourImage1"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="160dp"
             android:layout_marginTop="90dp" />
 
 
         <ImageView
             android:id="@+id/tourImage2"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:layout_marginTop="210dp" />
+            android:layout_height="160dp"
+            android:layout_marginTop="240dp" />
 
         <ImageView
             android:id="@+id/tourImage3"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
-            android:layout_marginTop="330dp" />
+            android:layout_height="160dp"
+            android:layout_marginTop="390dp" />
 
         <Button
             android:id="@+id/btnReservation"
