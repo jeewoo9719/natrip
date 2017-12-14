@@ -43,6 +43,9 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text="Start"
+        android:background="@color/colorname"
+        android:textColor="@color/back"
+        android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@+id/tourName"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,6 +78,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="End"
+        android:background="@color/colorname"
+        android:textColor="@color/back"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnStart"
         app:layout_constraintTop_toTopOf="parent" />
@@ -87,6 +93,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:text="등록"
+        android:background="@color/colorname"
+        android:textColor="@color/back"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tourDetail" />

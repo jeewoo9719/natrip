@@ -13,6 +13,6 @@
         android:layout_height="match_parent"
 
         app:srcCompat="@drawable/dsa"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="17dp" />
+        tools:layout_editor_absoluteX="15dp"
+        tools:layout_editor_absoluteY="0dp" />
 </android.support.constraint.ConstraintLayout>

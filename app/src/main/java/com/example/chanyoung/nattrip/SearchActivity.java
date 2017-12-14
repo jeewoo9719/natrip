@@ -205,7 +205,7 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher{
        btSearch.setOnClickListener(new View.OnClickListener(){
            @Override
            public void onClick(View view){
-               Toast.makeText(getApplicationContext(),"버튼",Toast.LENGTH_SHORT).show();
+
                Intent mainTourPage = new Intent(SearchActivity.this, MainActivity.class);
                mainTourPage.putExtra("userID",ID);
                mainTourPage.putExtra("tourPlace",editText.getText().toString());
