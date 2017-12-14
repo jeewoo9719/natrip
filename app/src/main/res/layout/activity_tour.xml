@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="300dp"
-            android:layout_marginTop="370dp"
+            android:layout_marginTop="60dp"
             android:textColor="#000000"
             android:textSize="20dp" />
 
@@ -37,7 +37,7 @@
             android:id="@+id/tourName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="150dp"
             android:textColor="#000000"
             android:textSize="40dp" />
 
@@ -45,7 +45,7 @@
             android:id="@+id/tourDetail"
             android:layout_width="fill_parent"
             android:layout_height="126dp"
-            android:layout_marginTop="370dp"
+            android:layout_marginTop="460dp"
             android:textColor="#000000"
             android:textSize="17sp" />
 
@@ -69,30 +69,28 @@
 
         <ImageView
             android:id="@+id/tourImage1"
-            android:layout_width="229dp"
+            android:layout_width="match_parent"
             android:layout_height="130dp"
-            android:layout_marginLeft="70dp"
             android:layout_marginTop="90dp" />
 
 
         <ImageView
             android:id="@+id/tourImage2"
-            android:layout_width="190dp"
+            android:layout_width="match_parent"
             android:layout_height="130dp"
-            android:layout_marginTop="230dp" />
+            android:layout_marginTop="210dp" />
 
         <ImageView
             android:id="@+id/tourImage3"
-            android:layout_width="190dp"
+            android:layout_width="match_parent"
             android:layout_height="130dp"
-            android:layout_marginLeft="195dp"
-            android:layout_marginTop="230dp" />
+            android:layout_marginTop="330dp" />
 
         <Button
             android:id="@+id/btnReservation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="300dp"
+            android:layout_marginLeft="350dp"
             android:background="@color/colorPrimaryDark"
             android:padding="20dp"
             android:text="예약하기"
