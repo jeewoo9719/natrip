@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +29,7 @@ public class SettingActivity extends AppCompatActivity {
     public String name;
     public TextView tv_name;
     public  TextView tv_guide;
+    int selectedID = 0;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -71,6 +73,7 @@ public class SettingActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();//클릭시 intent로 온 UserID 받음
         if(bundle != null){
             ID = bundle.getString("userID");
+            selectedID = bundle.getInt("selectedID");
         }
         table = FirebaseDatabase.getInstance().getReference("users");
         tv_name = (TextView) findViewById(R.id.textView);
@@ -152,6 +155,12 @@ public class SettingActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        Menu menu = navigation.getMenu();
+        for (int i = 0, size = menu.size(); i < size; i++) {
+            MenuItem item = menu.getItem(i);
+            item.setChecked(item.getItemId() == selectedID);
+        }
     }
 
 }
