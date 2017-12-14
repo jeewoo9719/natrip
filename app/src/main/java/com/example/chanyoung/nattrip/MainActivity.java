@@ -80,7 +80,9 @@ public class MainActivity extends AppCompatActivity {
                 tourActivity.putExtra("userID",ID);
                 tourActivity.putExtra("tourPlace",tourPlace);
                 tourActivity.putExtra("guideID",tour.getGuideID());
-               startActivity(tourActivity);
+                tourActivity.putExtra("regist","1");
+                startActivity(tourActivity);
+
             }
         });
 

@@ -72,7 +72,8 @@ public class register_list extends AppCompatActivity {
                 Tour tour=(Tour)adapterView.getAdapter().getItem(pos);
                 Intent tourActivity = new Intent(register_list.this, TourActivity.class);
                 tourActivity.putExtra("userID",ID);
-                tourActivity.putExtra("tourPlace",tourPlace);
+                tourActivity.putExtra("tourPlace",tour.getplace());
+                tourActivity.putExtra("regist","0");
                 tourActivity.putExtra("guideID",tour.getGuideID());
                 startActivity(tourActivity);
             }

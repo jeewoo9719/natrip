@@ -28,6 +28,7 @@ public class TourActivity extends AppCompatActivity {
     String ID; //userID
     String place; // 여행 지역
     String guideID; // 가이드 이름
+    String re;
     DatabaseReference table;
 
     //투어 정보
@@ -107,6 +108,7 @@ public class TourActivity extends AppCompatActivity {
             ID = bundle.getString("userID");
             place = bundle.getString("tourPlace");
             guideID = bundle.getString("guideID");
+            re = bundle.getString("regist");
         }
 
         //투어 정보
@@ -149,7 +151,12 @@ public class TourActivity extends AppCompatActivity {
             }
         });
 
+
         btnReservation = (Button)findViewById(R.id.btnReservation);
+        if(re.equals("0")){
+            btnReservation.setText("예약됨");
+        }
+
         btnReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
