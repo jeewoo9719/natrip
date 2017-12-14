@@ -182,7 +182,13 @@ public class RegisterTourActivity extends AppCompatActivity {
         spinnerlist.add("Seoul");
         spinnerlist.add("London");
         spinnerlist.add("Paris");
-        spinnerlist.add("L.A.");
+        spinnerlist.add("LA");
+        spinnerlist.add("Milano");
+        spinnerlist.add("Tokyo");
+        spinnerlist.add("Daegu");
+        spinnerlist.add("Austrailia");
+        spinnerlist.add("NewYork");
+
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,
                 spinnerlist);

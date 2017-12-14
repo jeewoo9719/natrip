@@ -9,10 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,12 +19,13 @@ import com.google.firebase.database.ValueEventListener;
 
 public class ChatList extends AppCompatActivity {
 
-    EditText nameSearch;//텍스트생성
     ListView listView;
     DatabaseReference table;
     ArrayAdapter<String> adapter;
     String ID = null;
 
+    String nameSearch[]=new String[10];//텍스트생성
+    int count=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,19 +35,9 @@ public class ChatList extends AppCompatActivity {
         if(bundle != null){
             ID = bundle.getString("userID");
         }
-        nameSearch=(EditText) findViewById(R.id.nameSearch);//가져오고
         init();
         initDB();
         initLV();
-        Button button = (Button) findViewById(R.id.gotoChat);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-                intent.putExtra("data",nameSearch.getText().toString());
-                intent.putExtra("userID",ID);
-                startActivity(intent);
-            }
-        });
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -57,6 +45,7 @@ public class ChatList extends AppCompatActivity {
     public void init(){
         adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
         listView=(ListView)findViewById(R.id.listChat);
+
     }
     public void initDB(){
         table= FirebaseDatabase.getInstance().getReference("messageDB");
@@ -65,6 +54,9 @@ public class ChatList extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot data: dataSnapshot.getChildren()){
                     String chatKey=data.getKey();
+                    nameSearch[count]=chatKey;
+                    count++;
+                    chatKey = chatKey.replaceFirst(ID," ");
                     adapter.add(chatKey);
                 }
             }
@@ -80,9 +72,9 @@ public class ChatList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
-                intent.putExtra("data",nameSearch.getText().toString());
+                intent.putExtra("data",nameSearch);
                 intent.putExtra("userID",ID);
-                intent.putExtra("chatSearch",adapter.getItem(i));
+                intent.putExtra("chatSearch",nameSearch[i]);
                 startActivity(intent);
             }
         });

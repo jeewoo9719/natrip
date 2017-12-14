@@ -218,7 +218,7 @@ class MyAdapter2 extends ArrayAdapter<Tour> { //arrayList담을 MyAdapter 클래
         guideID.setText(tour.getGuideID());//매핑작업(메시지, ID, 시간순으로 보여줌)
         tourName.setText(tour.getTourName());
         tourPlace.setText(tour.getplace());
-        tourDetail.setText(tour.getDetail());
+        tourDetail.setText("");
         return v;
     }
 }
