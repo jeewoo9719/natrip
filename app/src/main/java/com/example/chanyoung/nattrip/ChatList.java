@@ -79,8 +79,11 @@ public class ChatList extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String k=adapter.getItem(i);
-                Toast.makeText(ChatList.this, k, Toast.LENGTH_SHORT).show();//
+                Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+                intent.putExtra("data",nameSearch.getText().toString());
+                intent.putExtra("userID",ID);
+                intent.putExtra("chatSearch",adapter.getItem(i));
+                startActivity(intent);
             }
         });
     }

@@ -9,6 +9,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -45,7 +46,7 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher{
     TextView textView2;
     //MyDBHandler dbHandler;
     //DatabaseReference tabel;
-
+     int selectedID = 0;
     MyAdapter myAdapter;
 
 
@@ -89,6 +90,11 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher{
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        Menu menu = navigation.getMenu();
+        for (int i = 0, size = menu.size(); i < size; i++) {
+            MenuItem item = menu.getItem(i);
+            item.setChecked(item.getItemId() == selectedID);
+        }
 
 
         DatabaseReference table = FirebaseDatabase.getInstance().getReference("tours");
@@ -122,22 +128,26 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher{
                 case R.id.action_home:
                     Intent main_page = new Intent(SearchActivity.this,SearchActivity.class);
                     main_page.putExtra("userID",ID);
+                    main_page.putExtra("selectedID",item.getItemId());
                     startActivity(main_page);
                     break;
                 case R.id.action_MyTour:
                     Intent chat_page = new Intent(SearchActivity.this,MainActivity.class);
                     chat_page.putExtra("userID",ID);
+                    chat_page.putExtra("selectedID",item.getItemId());
                     startActivity(chat_page);
                     break;
 
                 case R.id.action_Messenger:
                     Intent msg_page = new Intent(SearchActivity.this,ChatList.class);
                     msg_page.putExtra("userID",ID);
+                    msg_page.putExtra("selectedID",item.getItemId());
                     startActivity(msg_page);
                     break;
                 case R.id.action_setting:
                     Intent setting_page = new Intent(SearchActivity.this,SettingActivity.class);
                     setting_page.putExtra("userID",ID);
+                    setting_page.putExtra("selectedID",item.getItemId());
                     startActivity(setting_page);
                     break;
             }

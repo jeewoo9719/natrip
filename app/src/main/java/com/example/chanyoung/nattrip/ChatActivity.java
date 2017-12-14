@@ -42,6 +42,7 @@ public class ChatActivity extends AppCompatActivity {
 
     String messageDB;
     String ID;
+    String chatSearch;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,8 @@ public class ChatActivity extends AppCompatActivity {
         Intent intent = getIntent();
         nameSearch = (String) intent.getStringExtra("data");//추가
         ID = (String) intent.getStringExtra("userID");//추가
+        chatSearch = (String) intent.getStringExtra("chatSearch");//추가
+
         init();
     }
 
@@ -67,13 +70,13 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     public void initDB() {//데이터베스 연결
-        if (userName.compareTo(nameSearch) < 0) {//대화 상대에 따라 다른 데이터 베이스 생성
-            messageDB = userName + nameSearch;
-        } else {
-            messageDB = nameSearch + userName;
-        }
+        //if (userName.compareTo(nameSearch) < 0) {//대화 상대에 따라 다른 데이터 베이스 생성
+        //    messageDB = userName + nameSearch;
+        //} else {
+        //    messageDB = nameSearch + userName;
+        //}
 
-        table = FirebaseDatabase.getInstance().getReference("messageDB").child(messageDB);
+        table = FirebaseDatabase.getInstance().getReference("messageDB").child(chatSearch);
         table.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
