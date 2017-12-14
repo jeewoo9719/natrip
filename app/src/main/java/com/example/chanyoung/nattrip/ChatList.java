@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +24,7 @@ public class ChatList extends AppCompatActivity {
     DatabaseReference table;
     ArrayAdapter<String> adapter;
     String ID = null;
+    int selectedID = 2131493114;
 
     String nameSearch[]=new String[10];//텍스트생성
     int count=0;
@@ -41,6 +43,12 @@ public class ChatList extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        Menu menu = navigation.getMenu();
+        for (int i = 0, size = menu.size(); i < size; i++) {
+            MenuItem item = menu.getItem(i);
+            item.setChecked(item.getItemId() == selectedID);
+        }
     }
     public void init(){
         adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
@@ -88,21 +96,25 @@ public class ChatList extends AppCompatActivity {
                 case R.id.action_home:
                     Intent main_page = new Intent(ChatList.this,SearchActivity.class);
                     main_page.putExtra("userID",ID);
+                    item.setChecked(false);
                     startActivity(main_page);
                     break;
                 case R.id.action_MyTour:
-                    Intent chat_page = new Intent(ChatList.this,MainActivity.class);
+                    Intent chat_page = new Intent(ChatList.this,register_list.class);
                     chat_page.putExtra("userID",ID);
+                    item.setChecked(false);
                     startActivity(chat_page);
                     break;
                 case R.id.action_Messenger:
                     Intent msg_page = new Intent(ChatList.this,ChatList.class);
                     msg_page.putExtra("userID",ID);
+                    item.setChecked(false);
                     startActivity(msg_page);
                     break;
                 case R.id.action_setting:
                     Intent setting_page = new Intent(ChatList.this,SettingActivity.class);
                     setting_page.putExtra("userID",ID);
+                    item.setChecked(false);
                     startActivity(setting_page);
                     break;
             }

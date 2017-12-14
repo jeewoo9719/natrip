@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -41,6 +44,8 @@ public class ChatActivity extends AppCompatActivity {
 
     String ID;
     String chatSearch;
+
+    int selectedID = 2131493114;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +70,14 @@ public class ChatActivity extends AppCompatActivity {
         initDB();
         Bundle bundle = getIntent().getExtras();//클릭시 intent로 온 UserID 받음
 
+        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        Menu menu = navigation.getMenu();
+        for (int i = 0, size = menu.size(); i < size; i++) {
+            MenuItem item = menu.getItem(i);
+            item.setChecked(item.getItemId() == selectedID);
+        }
     }
 
     public void initDB() {//데이터베스 연결
@@ -106,7 +119,42 @@ public class ChatActivity extends AppCompatActivity {
         //((LinearLayout) findViewById(R.id.userContainer)).setVisibility(View.GONE);
         //레이아웃 컨테이너에, 위치를 없애는 함수 GONE사용
     //}
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_home:
+                    Intent main_page = new Intent(ChatActivity.this,SearchActivity.class);
+                    main_page.putExtra("userID",ID);
+                    item.setChecked(false);
+                    startActivity(main_page);
+                    break;
+                case R.id.action_MyTour:
+                    Intent chat_page = new Intent(ChatActivity.this,register_list.class);
+                    chat_page.putExtra("userID",ID);
+                    item.setChecked(false);
+                    startActivity(chat_page);
+                    break;
+
+                case R.id.action_Messenger:
+                    Intent msg_page = new Intent(ChatActivity.this,ChatList.class);
+                    msg_page.putExtra("userID",ID);
+                    item.setChecked(false);
+                    startActivity(msg_page);
+                    break;
+                case R.id.action_setting:
+                    Intent setting_page = new Intent(ChatActivity.this,SettingActivity.class);
+                    setting_page.putExtra("userID",ID);
+                    item.setChecked(false);
+                    startActivity(setting_page);
+                    break;
+            }
+            return false;
+        }
+
+    };
     public class MyAdapter extends ArrayAdapter<ChatMsg> { //arrayList담을 MyAdapter 클래스 상속
         ArrayList<ChatMsg> arrayList;
 

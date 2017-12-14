@@ -62,21 +62,25 @@ public class TourActivity extends AppCompatActivity {
                 case R.id.action_home:
                     Intent main_page = new Intent(TourActivity.this,SearchActivity.class);
                     main_page.putExtra("userID",ID);
+                    item.setChecked(false);
                     startActivity(main_page);
                     break;
                 case R.id.action_MyTour:
                     Intent chat_page = new Intent(TourActivity.this,MainActivity.class);
                     chat_page.putExtra("userID",ID);
+                    item.setChecked(false);
                     startActivity(chat_page);
                     break;
                 case R.id.action_Messenger:
                     Intent msg_page = new Intent(TourActivity.this,ChatList.class);
                     msg_page.putExtra("userID",ID);
+                    item.setChecked(false);
                     startActivity(msg_page);
                     break;
                 case R.id.action_setting:
                     Intent setting_page = new Intent(TourActivity.this,SettingActivity.class);
                      setting_page.putExtra("userID",ID);
+                    item.setChecked(false);
                     startActivity(setting_page);
                     break;
             }

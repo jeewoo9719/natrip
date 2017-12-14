@@ -4,9 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -144,11 +144,6 @@ public class regist_guide extends AppCompatActivity {
                 photo.setText("V표시");
                 break;
         }
-
-
-        //table.child(ID).child("guide").setValue(1);
-        //table.child(ID).child("userLanguage").setValue(guide_language);
-        //table.child(ID).child("userPlace").setValue(guide_place);
 
         Button registGuide  = (Button) findViewById(R.id.button4);
         registGuide.setOnClickListener(new View.OnClickListener() {

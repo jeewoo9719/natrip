@@ -46,7 +46,7 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher{
     TextView textView2;
     //MyDBHandler dbHandler;
     //DatabaseReference tabel;
-     int selectedID = 0;
+     int selectedID = 2131493112;
     MyAdapter myAdapter;
 
 
@@ -128,26 +128,26 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher{
                 case R.id.action_home:
                     Intent main_page = new Intent(SearchActivity.this,SearchActivity.class);
                     main_page.putExtra("userID",ID);
-                    main_page.putExtra("selectedID",item.getItemId());
+                    item.setChecked(false);
                     startActivity(main_page);
                     break;
                 case R.id.action_MyTour:
                     Intent chat_page = new Intent(SearchActivity.this,register_list.class);
                     chat_page.putExtra("userID",ID);
-                    chat_page.putExtra("selectedID",item.getItemId());
+                    item.setChecked(false);
                     startActivity(chat_page);
                     break;
 
                 case R.id.action_Messenger:
                     Intent msg_page = new Intent(SearchActivity.this,ChatList.class);
                     msg_page.putExtra("userID",ID);
-                    msg_page.putExtra("selectedID",item.getItemId());
+                    item.setChecked(false);
                     startActivity(msg_page);
                     break;
                 case R.id.action_setting:
                     Intent setting_page = new Intent(SearchActivity.this,SettingActivity.class);
                     setting_page.putExtra("userID",ID);
-                    setting_page.putExtra("selectedID",item.getItemId());
+                    item.setChecked(false);
                     startActivity(setting_page);
                     break;
             }
