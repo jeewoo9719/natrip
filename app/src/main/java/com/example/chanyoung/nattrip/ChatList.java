@@ -59,7 +59,7 @@ public class ChatList extends AppCompatActivity {
         listView=(ListView)findViewById(R.id.listChat);
     }
     public void initDB(){
-        table= FirebaseDatabase.getInstance().getReference("message");
+        table= FirebaseDatabase.getInstance().getReference("messageDB");
         table.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

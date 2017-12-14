@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +40,8 @@ public class ChatActivity extends AppCompatActivity {
     String nameSearch;
     DatabaseReference table; //데이터베이스 레퍼런스 객체 선언
 
+    String messageDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,14 +62,13 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     public void initDB() {//데이터베스 연결
-        String messageDB;
-        if (nameSearch.compareTo(userName) < 0) {//대화 상대에 따라 다른 데이터 베이스 생성
-            messageDB = nameSearch + userName;
-        } else {
+        if (userName.compareTo(nameSearch) < 0) {//대화 상대에 따라 다른 데이터 베이스 생성
             messageDB = userName + nameSearch;
+        } else {
+            messageDB = nameSearch + userName;
         }
 
-        table = FirebaseDatabase.getInstance().getReference("messageDB");
+        table = FirebaseDatabase.getInstance().getReference("messageDB").child(messageDB);
         table.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -75,6 +77,7 @@ public class ChatActivity extends AppCompatActivity {
                     //들어온 메세지들을 일단 다 받겠다
                     ChatMsg chatMsg = data.getValue(ChatMsg.class);
                     //이형태로 데이터를 만들어서 넘겨준다.
+                    Toast.makeText(ChatActivity.this,chatMsg.getUserName(),Toast.LENGTH_LONG).show();
                     msgList.add(chatMsg);//리스트에 추가하는것
                 }
                 adapter.notifyDataSetChanged();//데이터변경알림

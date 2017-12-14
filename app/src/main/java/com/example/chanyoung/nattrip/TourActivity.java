@@ -20,6 +20,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class TourActivity extends AppCompatActivity {
 
     String ID; //userID
@@ -45,6 +48,9 @@ public class TourActivity extends AppCompatActivity {
 
     //투어 예약하기
     Button btnReservation;
+    //채팅방 이름
+    String chatID;
+    SimpleDateFormat mSimpleDateFormat;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -93,7 +99,7 @@ public class TourActivity extends AppCompatActivity {
 
         guideEmailView = (TextView)findViewById(R.id.guideEmail);
         guideNameView = (TextView)findViewById(R.id.guideName);
-
+        mSimpleDateFormat = new SimpleDateFormat("a h:mm", Locale.getDefault());
 
         table = FirebaseDatabase.getInstance().getReference("tours");
         Bundle bundle = getIntent().getExtras();//MainActivity에서 item 클릭시 intent로 온 UserID, place, guideName 받음
@@ -151,10 +157,17 @@ public class TourActivity extends AppCompatActivity {
                 table = FirebaseDatabase.getInstance().getReference("tours");
                 table.child(place).child(guideID).child("reserveUserID").setValue(ID);
 
-                table = FirebaseDatabase.getInstance().getReference("messageDB").push();
-                table.child("reserveUserID").setValue(ID);
-                table.child("guideID").setValue(guideID);
-
+                table = FirebaseDatabase.getInstance().getReference("messageDB");
+                if (ID.compareTo(guideID) < 0) {//대화 상대에 따라 다른 데이터 베이스 생성
+                    chatID = ID + guideID;
+                } else {
+                    chatID = guideID + ID;
+                }
+                table=FirebaseDatabase.getInstance().getReference("messageDB").child(chatID).push();
+                //table.child("").setValue(guideID);
+                table.child("message").setValue("hi man");
+                table.child("time").setValue(mSimpleDateFormat.format(System.currentTimeMillis()));
+                table.child("userName").setValue("admin");
                 Toast.makeText(TourActivity.this, "Reservation Done.",Toast.LENGTH_LONG).show();
             }
         });
