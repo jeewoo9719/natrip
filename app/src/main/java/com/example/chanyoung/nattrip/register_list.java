@@ -120,12 +120,11 @@ public class register_list extends AppCompatActivity {
                     //들어온 메세지들을 일단 다 받겠다
                     Tour tour = data.getValue(Tour.class);
                     //이형태로 데이터를 만들어서 넘겨준다.
-                    if(tour.getReserveUserID()!=null){
+                    if(tour.getReserveUserID().equals("no")!=true) {
                         if (tour.getReserveUserID().equals(ID)) {
                             tourList.add(tour);
                         }
                     }
-                    tourList.add(tour);
                 }
                 adapter.notifyDataSetChanged();//데이터변경알림
                 listView.setSelection(adapter.getCount()-1);
@@ -140,12 +139,12 @@ public class register_list extends AppCompatActivity {
         table.child("Paris").addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                tourList.clear();
+               // tourList.clear();
                 for(DataSnapshot data : dataSnapshot.getChildren()){
                     //들어온 메세지들을 일단 다 받겠다
                     Tour tour = data.getValue(Tour.class);
                     //이형태로 데이터를 만들어서 넘겨준다.
-                    if(tour.getReserveUserID()!=null){
+                    if(tour.getReserveUserID().equals("no")!=true){
                         if (tour.getReserveUserID().equals(ID)) {
                             tourList.add(tour);
                         }
@@ -163,12 +162,12 @@ public class register_list extends AppCompatActivity {
         table.child("Seoul").addValueEventListener(new ValueEventListener(){
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                tourList.clear();
+               // tourList.clear();
                 for(DataSnapshot data : dataSnapshot.getChildren()){
                     //들어온 메세지들을 일단 다 받겠다
                     Tour tour = data.getValue(Tour.class);
                     //이형태로 데이터를 만들어서 넘겨준다.
-                    if(tour.getReserveUserID()!=null){
+                    if(tour.getReserveUserID().equals("no")!=true){
                         if (tour.getReserveUserID().equals(ID)) {
                             tourList.add(tour);
                         }

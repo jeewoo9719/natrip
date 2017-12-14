@@ -21,7 +21,7 @@ public class Tour {
     private String image3FilePath;
 
     //예약한 사람 ID
-    private  String reserveUserID;
+    private  String reserveUserID="no";
 
 
     Tour(){}
