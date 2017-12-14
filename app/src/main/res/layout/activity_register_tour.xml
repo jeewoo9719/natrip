@@ -7,157 +7,175 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.chanyoung.nattrip.RegisterTourActivity">
-<android.support.constraint.ConstraintLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/tourDetail"
-        android:layout_width="347dp"
-        android:layout_height="131dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="120dp"
-        android:ems="10"
-        android:inputType="textMultiLine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/tourName"
-        android:layout_width="151dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:ems="10"
-        android:hint="Tour_Name"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/tourDetail"
+            android:layout_width="400dp"
+            android:layout_height="131dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/edittextshape"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mPhotoPickerButton2" />
 
-    <Button
-        android:id="@+id/btnStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Start"
-        android:background="@color/colorname"
-        android:textColor="@color/back"
-        android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/tourName"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/tourName"
+            android:layout_width="151dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:hint="Tour_Name"
+            android:inputType="textPersonName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="285dp"
-        android:layout_height="33dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/place" />
+        <Button
+            android:id="@+id/btnStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorname"
+            android:text="Start"
+            android:textColor="@color/back"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/tourName"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:text="Place"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tourName" />
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="285dp"
+            android:layout_height="33dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.474"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/place" />
 
-    <Button
-        android:id="@+id/btnEnd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="End"
-        android:background="@color/colorname"
-        android:textColor="@color/back"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnStart"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/place"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Place"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnStart" />
 
-    <Button
-        android:id="@+id/btnRegiTour"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:text="등록"
-        android:background="@color/colorname"
-        android:textColor="@color/back"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tourDetail" />
+        <Button
+            android:id="@+id/btnEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorname"
+            android:text="End"
+            android:textColor="@color/back"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btnStart"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/mPhotoPickerButton1"
-        android:layout_width="50dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="90dp"
-        android:src="@drawable/ic_photo"
-        app:layout_constraintStart_toStartOf="@+id/imgView1"
-        app:layout_constraintTop_toTopOf="@+id/imgView1" />
+        <Button
+            android:id="@+id/btnRegiTour"
+            android:layout_width="400dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorname"
+            android:text="등록"
+            android:textColor="@color/back"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tourDetail"
+            app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
-        android:id="@+id/imgView1"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        <ImageButton
+            android:id="@+id/mPhotoPickerButton1"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_photo"
+            app:layout_constraintBottom_toTopOf="@+id/tourDetail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgView1"
+            app:layout_constraintVertical_bias="1.0" />
 
-    <ImageButton
-        android:id="@+id/mPhotoPickerButton2"
-        android:layout_width="50dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="90dp"
-        android:src="@drawable/ic_photo"
-        app:layout_constraintStart_toStartOf="@+id/imgView2"
-        app:layout_constraintTop_toTopOf="@+id/imgView2" />
+        <ImageView
+            android:id="@+id/imgView1"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="164dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tourName" />
 
-    <ImageView
-        android:id="@+id/imgView2"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="130dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        <ImageButton
+            android:id="@+id/mPhotoPickerButton2"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_photo"
+            app:layout_constraintStart_toEndOf="@+id/mPhotoPickerButton1"
+            app:layout_constraintTop_toBottomOf="@+id/imgView2" />
 
-    <ImageButton
-        android:id="@+id/mPhotoPickerButton3"
-        android:layout_width="50dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="90dp"
-        android:src="@drawable/ic_photo"
-        app:layout_constraintStart_toStartOf="@+id/imgView3"
-        app:layout_constraintTop_toTopOf="@+id/imgView3" />
+        <ImageView
+            android:id="@+id/imgView2"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="92dp"
+            app:layout_constraintStart_toEndOf="@+id/imgView1"
+            app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
-    <ImageView
-        android:id="@+id/imgView3"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="255dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        <ImageButton
+            android:id="@+id/mPhotoPickerButton3"
+            android:layout_width="50dp"
+            android:layout_height="26dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="75dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_photo"
+            app:layout_constraintBottom_toTopOf="@+id/tourDetail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/mPhotoPickerButton2"
+            app:layout_constraintTop_toBottomOf="@+id/imgView3"
+            app:layout_constraintVertical_bias="0.0" />
 
-</android.support.constraint.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imgView3"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="164dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/imgView2"
+            app:layout_constraintTop_toBottomOf="@+id/btnEnd" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
