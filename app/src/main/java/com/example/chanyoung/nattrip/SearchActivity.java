@@ -29,7 +29,9 @@ import java.util.Calendar;
 
 public class SearchActivity extends AppCompatActivity implements TextWatcher{
 
-    Button btn,bt;
+    Button btn,bt;  //투어 시작일이랑 종료일용 버튼
+    Button btSearch; //투어 검색용 버튼
+
     int year_x, month_x,day_x;  //투어 시작일 받는 인자
     int year_y, month_y,day_y;  //투어
 
@@ -109,6 +111,7 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher{
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+        searchTour();
     }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -197,6 +200,25 @@ public class SearchActivity extends AppCompatActivity implements TextWatcher{
                 Toast.makeText(SearchActivity.this,year_y+"/"+(month_y+1)+"/"+day_y,Toast.LENGTH_LONG).show();
             }
         };
+   public void searchTour(){
+       btSearch=(Button)findViewById(R.id.searchTour);
+       btSearch.setOnClickListener(new View.OnClickListener(){
+           @Override
+           public void onClick(View view){
+               Toast.makeText(getApplicationContext(),"버튼",Toast.LENGTH_SHORT).show();
+               Intent mainTourPage = new Intent(SearchActivity.this, MainActivity.class);
+               mainTourPage.putExtra("userID",ID);
+               mainTourPage.putExtra("tourPlace",editText.getText().toString());
+               mainTourPage.putExtra("startTourDateY",year_x);
+               mainTourPage.putExtra("startTourDateM",month_x+1);
+               mainTourPage.putExtra("startTourDateD",day_x);
+               mainTourPage.putExtra("endTourDateY",year_y);
+               mainTourPage.putExtra("endTourDateM",month_y+1);
+               mainTourPage.putExtra("endTourDateD",day_y);
+               startActivity(mainTourPage);
+           }
+       });
+   }
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
