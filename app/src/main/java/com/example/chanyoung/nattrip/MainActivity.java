@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -129,8 +130,12 @@ public class MainActivity extends AppCompatActivity {
                 for(DataSnapshot data : dataSnapshot.getChildren()){
                     //들어온 메세지들을 일단 다 받겠다
                     Tour tour = data.getValue(Tour.class);
+                    if (startTourDateY<= Integer.parseInt(tour.getStartyear()) && Integer.parseInt(tour.getEndyear())<= endTourDateY){
+                        if (startTourDateM<= Integer.parseInt(tour.getStartmonth()) && Integer.parseInt(tour.getEndmonth())<= endTourDateM){
+                            tourList.add(tour);
+                        }
+                    }
                     //이형태로 데이터를 만들어서 넘겨준다.
-                    tourList.add(tour);
                 }
                 adapter.notifyDataSetChanged();//데이터변경알림
                 listView.setSelection(adapter.getCount()-1);
