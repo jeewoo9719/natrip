@@ -99,7 +99,7 @@ public class TourActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();//MainActivity에서 item 클릭시 intent로 온 UserID, place, guideName 받음
         if(bundle != null){
             ID = bundle.getString("userID");
-            place = bundle.getString("place");
+            place = bundle.getString("tourPlace");
             guideID = bundle.getString("guideID");
         }
 
