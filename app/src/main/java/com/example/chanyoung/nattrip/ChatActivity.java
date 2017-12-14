@@ -41,13 +41,14 @@ public class ChatActivity extends AppCompatActivity {
     DatabaseReference table; //데이터베이스 레퍼런스 객체 선언
 
     String messageDB;
-
+    String ID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         Intent intent = getIntent();
         nameSearch = (String) intent.getStringExtra("data");//추가
+        ID = (String) intent.getStringExtra("userID");//추가
         init();
     }
 
@@ -58,7 +59,11 @@ public class ChatActivity extends AppCompatActivity {
         adapter = new MyAdapter(this, R.layout.chat_row, msgList);
         msgListView.setAdapter(adapter);
         mSimpleDateFormat = new SimpleDateFormat("a h:mm", Locale.getDefault());
-        //오전오후 몇시 몇분, 포맷을 맞춰주는 정의함수
+        table = FirebaseDatabase.getInstance().getReference("users");
+        userName=ID;//오전오후 몇시 몇분, 포맷을 맞춰주는 정의함수
+        initDB();
+        Bundle bundle = getIntent().getExtras();//클릭시 intent로 온 UserID 받음
+
     }
 
     public void initDB() {//데이터베스 연결
@@ -77,7 +82,6 @@ public class ChatActivity extends AppCompatActivity {
                     //들어온 메세지들을 일단 다 받겠다
                     ChatMsg chatMsg = data.getValue(ChatMsg.class);
                     //이형태로 데이터를 만들어서 넘겨준다.
-                    Toast.makeText(ChatActivity.this,chatMsg.getUserName(),Toast.LENGTH_LONG).show();
                     msgList.add(chatMsg);//리스트에 추가하는것
                 }
                 adapter.notifyDataSetChanged();//데이터변경알림
@@ -101,12 +105,11 @@ public class ChatActivity extends AppCompatActivity {
         message.setText("");
     }
 
-    public void btnSet(View view) { //set버튼 눌렀을때 수행하는 작업
-        userName = ((TextView) findViewById(R.id.userName)).getText().toString();
-        ((LinearLayout) findViewById(R.id.userContainer)).setVisibility(View.GONE);
+    //public void btnSet(View view) { //set버튼 눌렀을때 수행하는 작업
+        //userName = ((TextView) findViewById(R.id.userName)).getText().toString();
+        //((LinearLayout) findViewById(R.id.userContainer)).setVisibility(View.GONE);
         //레이아웃 컨테이너에, 위치를 없애는 함수 GONE사용
-        initDB();
-    }
+    //}
 
     public class MyAdapter extends ArrayAdapter<ChatMsg> { //arrayList담을 MyAdapter 클래스 상속
         ArrayList<ChatMsg> arrayList;

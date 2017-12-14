@@ -37,7 +37,6 @@ public class ChatList extends AppCompatActivity {
         if(bundle != null){
             ID = bundle.getString("userID");
         }
-
         nameSearch=(EditText) findViewById(R.id.nameSearch);//가져오고
         init();
         initDB();
@@ -47,6 +46,7 @@ public class ChatList extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
                 intent.putExtra("data",nameSearch.getText().toString());
+                intent.putExtra("userID",ID);
                 startActivity(intent);
             }
         });
@@ -80,7 +80,7 @@ public class ChatList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String k=adapter.getItem(i);
-                Toast.makeText(ChatList.this, k, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChatList.this, k, Toast.LENGTH_SHORT).show();//
             }
         });
     }
