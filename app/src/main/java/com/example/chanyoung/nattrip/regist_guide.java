@@ -6,8 +6,11 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -157,6 +160,38 @@ public class regist_guide extends AppCompatActivity {
         });
 
     }
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.action_home:
+                    Intent main_page = new Intent(regist_guide.this,SearchActivity.class);
+                    main_page.putExtra("userID",ID);
+                    startActivity(main_page);
+                    break;
+                case R.id.action_MyTour:
+                    Intent chat_page = new Intent(regist_guide.this,MainActivity.class);
+                    chat_page.putExtra("userID",ID);
+                    startActivity(chat_page);
+                    break;
+
+                case R.id.action_Messenger:
+                    Intent msg_page = new Intent(regist_guide.this,ChatList.class);
+                    msg_page.putExtra("userID",ID);
+                    startActivity(msg_page);
+                    break;
+                case R.id.action_setting:
+                    Intent setting_page = new Intent(regist_guide.this,SettingActivity.class);
+                    setting_page.putExtra("userID",ID);
+                    startActivity(setting_page);
+                    break;
+            }
+            return false;
+        }
+
+    };
     //사진
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode,resultCode,data);

@@ -13,24 +13,9 @@ public class User {
     private String email;
     private  String userPlace;
 
-    private boolean guideAllowance;
-
-    /*
-    * private String location;
-    * private **** userPicture;
-    * private String selfIntroduction;
-    * private ***** possibleTime
-    * private String/int price;
-    * */
-
     public User(){
     }
-    /*
-    public User(String userId, String userName,String language){
-        this.userID = userId;
-        this.userName = userName;
-        this.language = language;
-    }*/
+
     public User(String userId, String userPW,String userName, String email){
         this.userID =  userId;
         this.userPW = userPW;
