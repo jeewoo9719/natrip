@@ -71,13 +71,13 @@ public class ChatActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();//클릭시 intent로 온 UserID 받음
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        //navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        Menu menu = navigation.getMenu();
-        for (int i = 0, size = menu.size(); i < size; i++) {
-            MenuItem item = menu.getItem(i);
-            item.setChecked(item.getItemId() == selectedID);
-        }
+        //Menu menu = navigation.getMenu();
+        //for (int i = 0, size = menu.size(); i < size; i++) {
+        //    MenuItem item = menu.getItem(i);
+        //    item.setChecked(item.getItemId() == selectedID);
+        //}
     }
 
     public void initDB() {//데이터베스 연결
@@ -189,10 +189,10 @@ public class ChatActivity extends AppCompatActivity {
 
             if (userName.equals(chatMsg.getUserName())) {
                 msgContainer.setGravity(Gravity.RIGHT);//ID가 같으면 오른쪽
-                msgText.setBackgroundResource(R.drawable.ic_action_name);
+               // msgText.setBackgroundResource(R.drawable.chat);
             } else {
                 msgContainer.setGravity(Gravity.LEFT);//ID가 다르면 왼쪽
-                msgText.setBackgroundResource(R.drawable.ic_action_name);
+               // msgText.setBackgroundResource(R.drawable.chat);
             }
             //  }
             return v;
